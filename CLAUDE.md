@@ -2,7 +2,8 @@
 
 You are the engine of **MERO Marketing** — the marketing tool/department of **Merowingus Studio**
 (MERO Studio). This is a **parallel sibling project** to MERO SEO and MERO Job Hunt, under the studio
-umbrella. All marketing work — content, distribution, launches, leads, funding/outreach — is built here.
+umbrella. All marketing work — content, distribution, **launches & releases**, leads, funding/outreach
+— is built here.
 
 > Parent studio: `C:\CODE\MEROWINGUS Studio`. Org model & shared engine:
 > `C:\CODE\MEROWINGUS Studio\strategy\agentic-engine.md`. This project follows it.
@@ -22,8 +23,12 @@ The intelligence is **the Claude model**, not scripts. An agent = a **skill** (`
 loaded as the system prompt; it reads a product + a strategy (fuel) and produces structured output
 (scripts, posts, launch kits, SEO briefs). Same engine as the studio; swap the skill = different job.
 
-- **Agents live in** `.claude/skills/` (invocable as `/<name>` when working in this project).
-- **Fuel lives in** [`strategies/`](strategies/) — real strategy docs the agents draw on.
+- **Start at** `marketing-orchestrator` — the menu of every agent; it routes to the right one.
+- **Plan with** `strategy-architect` — sequences channels and says which agent to build next.
+- **One agent per channel** (`reddit`, `instagram`, `tiktok`, `youtube`, `x-twitter`, `linkedin`,
+  `product-hunt`, `hacker-news`, `discord`, `blog`, `seo`); each stores output in `channels/<name>/`.
+- **Agents live in** `.claude/skills/` (invocable as `/<name>` in this project).
+- **Fuel lives in** [`strategies/`](strategies/); **experiments** in [`experiments.md`](experiments.md).
 - **Roster & status:** [`agents/README.md`](agents/README.md).
 
 ## Rules
@@ -43,14 +48,19 @@ loaded as the system prompt; it reads a product + a strategy (fuel) and produces
 ```
 CLAUDE.md            this file — how the project works
 README.md            what MERO Marketing is
-ROADMAP.md           agents + micro-tools, Now/Next/Later (the marketing roadmap)
+ROADMAP.md           Now/Next/Later (the marketing roadmap)
 strategies/          fuel — real strategy docs (Divergentum: instagram-2h, guerrilla, seo, funding)
 agents/              the roster (README) + per-agent notes
-.claude/skills/      the skill-agents (script-writer = first, built)
+channels/<name>/     per-channel output (reddit, instagram, tiktok, … each agent writes here)
+campaigns/<x>/       per-campaign plan + assets (e.g. campaigns/divergentum/)
+experiments.md       experiment → skill loop (what wins becomes the next agent)
+.claude/skills/      the skill-agents (orchestrator, strategy-architect, + one per channel)
 ```
 
-## Current focus (2026-06-21)
+## Current focus (2026-06-22)
 
-**Script Writer** is the first built agent (Reels/Shorts/TikTok scripts). First real job: generate
-launch clips for **Divergentum** from `strategies/`. Next agents: Positioning Distiller · Community
-Seeder · Launch-Day Playbook. See [`ROADMAP.md`](ROADMAP.md).
+Full agent system stood up: `marketing-orchestrator` (menu) + `strategy-architect` (planner) + one
+agent per channel (reddit, instagram, tiktok, youtube, x-twitter, linkedin, product-hunt, hacker-news,
+discord, blog, seo) + shared `script-writer`. Active job: the **Divergentum launch** —
+[`campaigns/divergentum/`](campaigns/divergentum/). Each run is an experiment ([`experiments.md`](experiments.md));
+winners graduate into new agents. Start at `marketing-orchestrator`.

@@ -1,29 +1,52 @@
 # MERO Marketing — Agent roster
 
-Reusable, product-agnostic marketing agents. Each is a skill in `../.claude/skills/<name>/SKILL.md`,
-runs on the Claude model, and is parametrized by {product · ICP · channel}. Fuel = [`../strategies/`](../strategies/).
+Channel-per-agent model. Each agent is a skill in `../.claude/skills/<name>/SKILL.md`, knows its
+channel's norms, and stores output in `../channels/<name>/`. Start at `marketing-orchestrator`.
 
-## Agents (think + produce)
+## Meta-agents
+| Agent | Role |
+|---|---|
+| **marketing-orchestrator** | The menu — shows every agent, routes to the chosen one |
+| **strategy-architect** | Builds the strategy/channel-development plan; says which agent runs each step + which to build next |
 
-| Agent | Skill | Does | From strategy | Status |
-|---|---|---|---|---|
-| **Script Writer** | `script-writer` | Reels/Shorts/TikTok scripts (POV/demo) | instagram-2h, guerrilla | ✅ Built |
-| **Positioning Distiller** | `positioning` | product → ICP, pains, USP, wow-hook | guerrilla | Planned (next, foundation) |
-| **Community Seeder** | `community-seeder` | DevLog/seed posts per platform (Reddit/Discord/forums) | guerrilla | Planned |
-| **Launch-Day Playbook** | `launch-playbook` | Product Hunt / HN / Reddit launch kit | guerrilla, funding | Planned |
-| **SEO Brief Writer** | `seo-brief` | keywords → meta + article ToR (feeds MERO SEO) | seo | Later |
-| **Funnel Designer** | `funnel` | lead-magnet + freemium funnel + copy | instagram-2h, seo | Later |
-| **Funding & Outreach** | `funding-outreach` | funding-source match + pitch + influencer DMs | funding | Later |
+## Channel agents (output → `../channels/<name>/`)
+| Agent | Channel | Built |
+|---|---|---|
+| **reddit** | Reddit DevLog / community | ✅ |
+| **instagram** | Reels + profile + DM funnel | ✅ |
+| **tiktok** | POV short-form | ✅ |
+| **youtube** | Shorts + demos (+ SEO titles) | ✅ |
+| **x-twitter** | build-in-public threads | ✅ |
+| **linkedin** | personal-brand posts (ICP A) | ✅ |
+| **product-hunt** | launch-day kit | ✅ |
+| **hacker-news** | Show HN | ✅ |
+| **discord** | community hub / Hall of Fame | ✅ |
+| **blog** | own-site posts (→ studio `blog/drafts/`) | ✅ |
+| **seo** | keyword/meta/article briefs (→ MERO SEO app) | ✅ |
 
-## Micro-tools (small utilities, build when needed)
+## Shared / content
+| Agent | Role |
+|---|---|
+| **script-writer** | video scripts the IG/TikTok/YouTube agents reuse | ✅ |
+| `content-engine` (studio) | long-form post format the blog agent uses | ✅ |
 
-- Meta-tag generator (title ≤60, desc ≤155) · UTM/link builder · Posting calendar
-- KPI definer (activation / signup→paid / churn / SERP) — ties to the Lean loop
-- 14-day launch template (the studio Planner instantiates it per product)
+## Suggested future agents (build when a plan or experiment justifies)
+- **positioning** — product → ICP, pains, USP, wow-hook (foundation the others lean on)
+- **funnel-designer** — lead-magnet + freemium soft-limit funnel + copy
+- **funding-outreach** — Kickstarter/Patreon/itch.io + pitch + investor angle
+- **influencer-outreach** — micro-influencer barter (lifetime tier for honest review)
+- **email-newsletter** — Resend sequences (welcome / re-engage)
+- **pikabu** — RU community (Лига Ролевиков) — from the guerrilla strategy
+- **repurposer** — one asset → all channels in one pass
+- **analytics-utm** — UTM builder + GA4 readout (closes the experiment loop)
 
 ## How a new agent is born
 
-1. Take a pattern from a real strategy in `../strategies/`.
-2. Generalize it (remove product specifics → params).
-3. Write `../.claude/skills/<name>/SKILL.md` (inputs → method → output → rules), zero-fabrication.
-4. Test it on Divergentum first (the first case study), then it's reusable for the next product.
+Two paths — both end in a reusable skill:
+
+**A. From a strategy doc** (a-priori): take a pattern from `../strategies/` → generalize (params
+{product · ICP · channel}) → write `../.claude/skills/<name>/SKILL.md` → test on Divergentum first.
+
+**B. From a winning experiment** (empirical — preferred once we have data): a tactic that *measurably
+worked* (see [`../experiments.md`](../experiments.md)) graduates into a skill. This is how marketing
+automates itself — each proven experiment becomes one command next time.
