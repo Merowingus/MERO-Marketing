@@ -7,6 +7,10 @@ umbrella. All marketing work — content, distribution, **launches & releases**,
 
 > Parent studio: `C:\CODE\MEROWINGUS Studio`. Org model & shared engine:
 > `C:\CODE\MEROWINGUS Studio\strategy\agentic-engine.md`. This project follows it.
+>
+> **Coordination journal (sync with Claude Code / Studio dev):** before & after work, read and update
+> `C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (decisions · changes · commit/PR ·
+> blockers · next step). Local pointer: `coordination/SYNC.md`.
 
 ## The core idea — the machine, not the strategy
 
