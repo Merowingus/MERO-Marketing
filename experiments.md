@@ -32,6 +32,7 @@ per experiment so you know which source actually converted. No UTM = no experime
 | 2026-06-22 | Per-class POV clips | one video platform | the visual wow drives organic reach | views → signups via UTM | running | extend `script-writer` presets |
 | 2026-06-22 | "Last 10%" blog post | merowingus.com/blog | build-in-public earns trust + SEO | traffic, time-on-page | running | refine `content-engine` angle |
 | 2026-06-22 | Product Hunt + Show HN | PH / HN | one-day spike + IT/angel visibility | launch-day signups | planned | → `launch-playbook` if it wins |
+| 2026-06-24 | Five-class choice gallery | r/Divergentum | a low-pressure visual question earns first community comments and reveals class interest | comments by class + stated reasons | planned | feed class hooks into `reddit` / `tiktok` |
 
 > Add a row per experiment as you run it. Fill `result` + `verdict` after measuring. Winners with a
 > filled "→ Skill?" become the next agents — that's how the marketing gets more automated each round.
