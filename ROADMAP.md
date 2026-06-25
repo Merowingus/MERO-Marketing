@@ -11,7 +11,7 @@ marketing DoD, so it never becomes an afterthought.
 
 ## 🎯 Current focus
 
-**Script Writer** built — first real job: generate Divergentum launch clips from `strategies/`.
+**Divergentum distribution:** Reddit foundation is live; TikTok channel launch design is in progress.
 
 ## Agents (think + produce)
 
@@ -29,6 +29,7 @@ marketing DoD, so it never becomes an afterthought.
 
 | Horizon | Tool | Status |
 |---|---|---|
+| **Next** | **MERO Marketing Dashboard** — campaign plans, task status, shipped assets, experiment results, GA4/site analytics in one online view; published through the Studio's MERO Marketing section | Brainstorm queued |
 | **Later** | Meta-tag generator (title ≤60, desc ≤155) · UTM/link builder · Posting calendar | Directional |
 | **Later** | KPI definer (activation / signup→paid / churn / SERP) — ties to Lean | Directional |
 | **Later** | 14-day launch template (Planner instantiates per product) | Directional |
@@ -41,5 +42,5 @@ marketing DoD, so it never becomes an afterthought.
 
 ## Next step
 
-Run `/script-writer` on Divergentum → 3 launch clips. Then build **Positioning Distiller** (everything
-downstream needs it).
+Finish the Divergentum TikTok launch design. Then brainstorm the **MERO Marketing Dashboard** data
+model and MVP boundary before implementing it in the Studio website.

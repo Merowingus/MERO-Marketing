@@ -59,3 +59,9 @@ Continue brainstorming with **Design section 2: content pillars and repeatable s
 Propose 2–3 ways to organize the five weekly videos into recognizable recurring series. Recommend
 the model that best balances gameplay proof, Mykola's personality, and registration intent. Present
 the section and ask for approval before moving to the first five launch videos.
+
+## Queued after this design
+
+Run a separate brainstorm for the **MERO Marketing Dashboard**. Resume from:
+
+`docs/brainstorms/mero-marketing-dashboard-checkpoint-2026-06-24.md`
