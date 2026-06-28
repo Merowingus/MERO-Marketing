@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MERO Marketing Command Center</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="brand-lockup">
+          <img class="brand-logo" src="assets/logo.png" alt="Merowingus Studio logo" />
+          <div>
+            <div class="eyebrow">Merowingus Studio · MERO Marketing</div>
+            <h1 id="dashboard-title">Command Center</h1>
+            <p id="dashboard-subtitle" class="lead"></p>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="pill pill-live" id="campaign-status">Launch in progress</span>
+          <p id="campaign-focus"></p>
+          <a id="campaign-website" class="button" href="#" target="_blank" rel="noreferrer">Open product</a>
+        </aside>
+      </header>
+
+      <main>
+        <section class="focus-strip" id="focus-strip" aria-label="Current focus"></section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Pulse</div>
+              <h2>Launch state</h2>
+            </div>
+            <span id="last-updated" class="muted"></span>
+          </div>
+          <div class="kpi-grid" id="kpi-grid"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Channels</div>
+              <h2>What each wheel is doing</h2>
+            </div>
+          </div>
+          <div class="channel-grid" id="channel-grid"></div>
+        </section>
+
+        <section class="section grid-main">
+          <article class="card span-2">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">TikTok</div>
+                <h2>First launch batch</h2>
+              </div>
+              <span class="pill pill-running">24–72h observation</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Video</th>
+                    <th>Hook</th>
+                    <th>Views</th>
+                    <th>Likes</th>
+                    <th>Comments</th>
+                    <th>Profile</th>
+                    <th>Clicks</th>
+                    <th>Signups</th>
+                  </tr>
+                </thead>
+                <tbody id="tiktok-table"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <aside class="card">
+            <div class="eyebrow">Next 72 hours</div>
+            <h2>Do next</h2>
+            <ul class="action-list" id="next-actions"></ul>
+          </aside>
+        </section>
+
+        <section class="section grid-main">
+          <article class="card span-2">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">Experiments</div>
+                <h2>Hypotheses in motion</h2>
+              </div>
+              <span class="pill pill-watch">Manual results</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Experiment</th>
+                    <th>Channel</th>
+                    <th>Hypothesis</th>
+                    <th>Metric</th>
+                    <th>Verdict</th>
+                  </tr>
+                </thead>
+                <tbody id="experiment-table"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <aside class="card danger-card">
+            <div class="eyebrow">Focus guard</div>
+            <h2>Do not do yet</h2>
+            <ul class="plain-list" id="dont-do-list"></ul>
+          </aside>
+        </section>
+
+        <section class="section grid-main">
+          <article class="card">
+            <div class="eyebrow">Analytics</div>
+            <h2>GA4 setup checklist</h2>
+            <ul class="check-list" id="ga4-checklist"></ul>
+          </article>
+
+          <article class="card">
+            <div class="eyebrow">Events</div>
+            <h2>What to track</h2>
+            <div class="event-columns">
+              <div>
+                <h3>Recommended events</h3>
+                <div id="recommended-events" class="tag-cloud"></div>
+              </div>
+              <div>
+                <h3>Key events</h3>
+                <div id="key-events" class="tag-cloud"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="eyebrow">Links</div>
+            <h2>UTM and routing</h2>
+            <div id="link-list" class="link-list"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+      const data = window.dashboardData;
+
+      const toneClass = (tone) => `pill pill-${tone || "watch"}`;
+      const cell = (value) => `<td>${value || "pending"}</td>`;
+
+      document.title = `${data.campaign.product} · ${data.campaign.title}`;
+      document.getElementById("dashboard-title").textContent = data.campaign.title;
+      document.getElementById("dashboard-subtitle").textContent = data.campaign.subtitle;
+      document.getElementById("campaign-status").textContent = data.campaign.status;
+      document.getElementById("campaign-focus").textContent = data.campaign.currentFocus;
+      document.getElementById("campaign-website").href = data.campaign.website;
+      document.getElementById("last-updated").textContent = `Last updated ${data.campaign.lastUpdated}`;
+
+      document.getElementById("focus-strip").innerHTML = data.focus
+        .map((item) => `
+          <div class="focus-item">
+            <span>${item.label}</span>
+            <b class="${toneClass(item.tone)}">${item.value}</b>
+          </div>
+        `)
+        .join("");
+
+      document.getElementById("kpi-grid").innerHTML = data.kpis
+        .map((item) => `
+          <article class="kpi-card">
+            <span class="${toneClass(item.tone)}">${item.label}</span>
+            <strong>${item.value}</strong>
+            <p>${item.detail}</p>
+          </article>
+        `)
+        .join("");
+
+      document.getElementById("channel-grid").innerHTML = data.channels
+        .map((channel) => `
+          <article class="channel-card">
+            <div class="card-head">
+              <h3>${channel.name}</h3>
+              <span class="${toneClass(channel.tone)}">${channel.status}</span>
+            </div>
+            <p class="role">${channel.role}</p>
+            <p><b>Next:</b> ${channel.next}</p>
+            <p class="metric"><b>Metric:</b> ${channel.metric}</p>
+          </article>
+        `)
+        .join("");
+
+      document.getElementById("tiktok-table").innerHTML = data.tiktokVideos
+        .map((video) => `
+          <tr>
+            <td><b>${video.name}</b><small>${video.note}</small></td>
+            <td>${video.hook}</td>
+            ${cell(video.views)}
+            ${cell(video.likes)}
+            ${cell(video.comments)}
+            ${cell(video.profileVisits)}
+            ${cell(video.websiteClicks)}
+            ${cell(video.signups)}
+          </tr>
+        `)
+        .join("");
+
+      document.getElementById("experiment-table").innerHTML = data.experiments
+        .map((experiment) => `
+          <tr>
+            <td>${experiment.date}</td>
+            <td><b>${experiment.name}</b></td>
+            <td>${experiment.channel}</td>
+            <td>${experiment.hypothesis}</td>
+            <td>${experiment.metric}</td>
+            <td><span class="${toneClass(experiment.verdict === "parked" ? "parked" : experiment.verdict === "planned" ? "next" : "running")}">${experiment.verdict}</span></td>
+          </tr>
+        `)
+        .join("");
+
+      document.getElementById("next-actions").innerHTML = data.nextActions
+        .map((action) => `
+          <li>
+            <span class="${toneClass(action.status)}">${action.label}</span>
+            <p>${action.detail}</p>
+          </li>
+        `)
+        .join("");
+
+      document.getElementById("dont-do-list").innerHTML = data.dontDoYet
+        .map((item) => `<li>${item}</li>`)
+        .join("");
+
+      document.getElementById("ga4-checklist").innerHTML = data.ga4.checklist
+        .map((item) => `
+          <li>
+            <span class="check-dot check-${item.done}"></span>
+            <span>${item.item}</span>
+            <b>${item.done}</b>
+          </li>
+        `)
+        .join("");
+
+      const tag = (name) => `<span class="tag">${name}</span>`;
+      document.getElementById("recommended-events").innerHTML = data.ga4.recommendedEvents.map(tag).join("");
+      document.getElementById("key-events").innerHTML = data.ga4.keyEvents.map(tag).join("");
+
+      document.getElementById("link-list").innerHTML = data.links
+        .map((link) => `
+          <div class="link-row">
+            <span>${link.label}</span>
+            <code>${link.value}</code>
+          </div>
+        `)
+        .join("");
+    </script>
+  </body>
+</html>

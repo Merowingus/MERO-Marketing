@@ -1,6 +1,7 @@
 # Divergentum TikTok launch brainstorm checkpoint
 
-**Status:** In progress. Resume tomorrow without repeating completed questions.
+**Status:** First launch batch uploaded on 2026-06-27. Continue with metrics review and next-batch
+decisions, not setup questions.
 
 ## Goal
 
@@ -53,6 +54,16 @@ link. Verify availability during setup because TikTok capabilities can vary by r
 - Music rule: use TikTok's Commercial Music Library or audio owned/licensed for commercial use.
 
 ## Resume here
+
+Continue from the 24–72h observation window in:
+
+`channels/tiktok/divergentum-tiktok-launch-log-2026-06-27.md`
+
+Do not restart account/profile setup. The first seven videos are already uploaded.
+
+If metrics are available, review them before making more videos.
+
+## Previous resume note
 
 Continue brainstorming with **Design section 2: content pillars and repeatable series**.
 
