@@ -10,7 +10,7 @@
     <div class="shell">
       <header class="hero">
         <div class="brand-lockup">
-          <img class="brand-logo" src="assets/logo.png" alt="Merowingus Studio logo" />
+          <img class="brand-logo" src="assets/logo-dark.png" alt="Merowingus Studio logo" />
           <div>
             <div class="eyebrow">Merowingus Studio · MERO Marketing</div>
             <h1 id="dashboard-title">Command Center</h1>
@@ -26,6 +26,44 @@
 
       <main>
         <section class="focus-strip" id="focus-strip" aria-label="Current focus"></section>
+
+        <section class="section grid-main">
+          <article class="card span-2">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">Signal map</div>
+                <h2>How launch attention should become play</h2>
+              </div>
+              <span class="pill pill-running">Data-driven shell</span>
+            </div>
+            <div class="signal-map" id="signal-map"></div>
+          </article>
+
+          <aside class="card">
+            <div class="eyebrow">Analytics readiness</div>
+            <h2>GA4 setup</h2>
+            <div class="ring-card" id="ga4-ring"></div>
+          </aside>
+        </section>
+
+        <section class="section grid-main">
+          <article class="card span-2">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">Data visualization</div>
+                <h2>Channel status mix</h2>
+              </div>
+              <span class="pill pill-watch">Studio chart tokens</span>
+            </div>
+            <div class="bar-list" id="channel-status-bars"></div>
+          </article>
+
+          <aside class="card">
+            <div class="eyebrow">Pipeline</div>
+            <h2>Update path</h2>
+            <div class="pipeline-list" id="update-pipeline"></div>
+          </aside>
+        </section>
 
         <section class="section">
           <div class="section-head">
@@ -153,6 +191,46 @@
 
       const toneClass = (tone) => `pill pill-${tone || "watch"}`;
       const cell = (value) => `<td>${value || "pending"}</td>`;
+      const toneLabel = (tone) => tone || "watch";
+
+      function countBy(items, key) {
+        return items.reduce((acc, item) => {
+          const value = item[key] || "unknown";
+          acc[value] = (acc[value] || 0) + 1;
+          return acc;
+        }, {});
+      }
+
+      function renderBars(targetId, rows) {
+        const max = Math.max(...rows.map((row) => row.value), 1);
+        document.getElementById(targetId).innerHTML = rows
+          .map((row, index) => `
+            <div class="bar-row">
+              <div class="bar-row-head">
+                <span>${row.label}</span>
+                <b>${row.value}</b>
+              </div>
+              <div class="bar-track">
+                <span class="bar-fill chart-${(index % 8) + 1}" style="width:${Math.round((row.value / max) * 100)}%"></span>
+              </div>
+            </div>
+          `)
+          .join("");
+      }
+
+      function renderRing(targetId, completed, total, label, detail) {
+        const safeTotal = Math.max(total, 1);
+        const percent = Math.round((completed / safeTotal) * 100);
+        document.getElementById(targetId).innerHTML = `
+          <div class="ring" style="--ring-value:${percent}">
+            <span>${completed}/${total}</span>
+          </div>
+          <div>
+            <p class="ring-label">${label}</p>
+            <p class="ring-detail">${detail}</p>
+          </div>
+        `;
+      }
 
       document.title = `${data.campaign.product} · ${data.campaign.title}`;
       document.getElementById("dashboard-title").textContent = data.campaign.title;
@@ -167,6 +245,41 @@
           <div class="focus-item">
             <span>${item.label}</span>
             <b class="${toneClass(item.tone)}">${item.value}</b>
+          </div>
+        `)
+        .join("");
+
+      document.getElementById("signal-map").innerHTML = data.signalMap
+        .map((node, index) => `
+          <div class="signal-node">
+            <span class="${toneClass(node.tone)}">${node.label}</span>
+            <h3>${node.title}</h3>
+            <p>${node.detail}</p>
+            ${index < data.signalMap.length - 1 ? '<i class="signal-arrow">→</i>' : ""}
+          </div>
+        `)
+        .join("");
+
+      const ga4Started = data.ga4.checklist.filter((item) => ["done", "running", "partial"].includes(item.done)).length;
+      renderRing(
+        "ga4-ring",
+        ga4Started,
+        data.ga4.checklist.length,
+        "setup items started",
+        "Live API integration comes later. This ring only shows current setup readiness."
+      );
+
+      const channelStatusCounts = countBy(data.channels, "status");
+      renderBars(
+        "channel-status-bars",
+        Object.entries(channelStatusCounts).map(([label, value]) => ({ label, value }))
+      );
+
+      document.getElementById("update-pipeline").innerHTML = data.dataViz.updatePipeline
+        .map((item) => `
+          <div class="pipeline-item">
+            <span class="${toneClass(item.tone)}">${item.status}</span>
+            <p>${item.label}</p>
           </div>
         `)
         .join("");

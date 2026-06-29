@@ -54,6 +54,39 @@ window.dashboardData = {
     }
   ],
 
+  signalMap: [
+    {
+      label: "Reddit",
+      title: "Community proof",
+      detail: "Subreddit foundation is live. External DevLog waits for the right moment.",
+      tone: "live"
+    },
+    {
+      label: "TikTok",
+      title: "Visual reach",
+      detail: "Seven launch videos are uploaded. Metrics are in the first observation window.",
+      tone: "running"
+    },
+    {
+      label: "Website",
+      title: "Traffic capture",
+      detail: "Profile link is pending until TikTok unlocks the Website field.",
+      tone: "watch"
+    },
+    {
+      label: "Sign up",
+      title: "Conversion",
+      detail: "GA4 needs sign_up as a key event and UTM review.",
+      tone: "watch"
+    },
+    {
+      label: "Activation",
+      title: "First real play",
+      detail: "session_5_turns / activation event is planned.",
+      tone: "next"
+    }
+  ],
+
   channels: [
     {
       name: "Reddit",
@@ -292,6 +325,21 @@ window.dashboardData = {
       { item: "Mark purchase as a key event when payment path is live", done: "pending" },
       { item: "Use lowercase consistent UTM naming", done: "running" },
       { item: "Check Realtime / DebugView after each event change", done: "pending" }
+    ]
+  },
+
+  dataViz: {
+    tiktokBatch: {
+      uploaded: 7,
+      metricsCaptured: 0,
+      totalMetrics: 7,
+      note: "Metrics are intentionally empty until the 24h / 48h / 72h snapshots are recorded."
+    },
+    updatePipeline: [
+      { label: "Manual update file", status: "now", tone: "live" },
+      { label: "Validated upload", status: "next", tone: "next" },
+      { label: "GA4 connector", status: "later", tone: "watch" },
+      { label: "Social APIs", status: "later", tone: "parked" }
     ]
   },
 

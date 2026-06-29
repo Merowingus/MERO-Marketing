@@ -41,7 +41,21 @@
   --chart-2: hsl(40 78% 62%);
   --chart-3: hsl(168 52% 52%);
   --chart-4: hsl(266 60% 70%);
+  --chart-5: hsl(330 70% 68%);
+  --chart-6: hsl(150 48% 56%);
+  --chart-7: hsl(222 65% 68%);
+  --chart-8: hsl(16 78% 66%);
+  --chart-seq-1: var(--brand-light);
+  --chart-seq-2: var(--brand);
+  --chart-seq-3: var(--brand-deep);
+  --chart-accent: var(--cream);
+  --chart-accent-ink: var(--cream-ink);
+  --chart-grid: var(--line);
+  --chart-axis: var(--text-muted);
   --chart-track: var(--surface-tint);
+  --chart-label: var(--text-body);
+  --chart-pos: var(--success);
+  --chart-neg: #f0807f;
 
   --font-display: Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -296,6 +310,152 @@ p {
   font-size: var(--fs-small);
 }
 
+.signal-map {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.signal-node {
+  position: relative;
+  min-height: 178px;
+  padding: 16px;
+  border: 1px solid var(--chart-grid);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(180deg, rgba(12, 32, 52, 0.86), rgba(7, 25, 43, 0.74)),
+    radial-gradient(circle at 20% 0%, rgba(245, 212, 141, 0.08), transparent 70%);
+}
+
+.signal-node h3 {
+  margin: 18px 0 8px;
+  color: var(--text-strong);
+}
+
+.signal-node p {
+  margin: 0;
+  font-size: var(--fs-small);
+}
+
+.signal-arrow {
+  position: absolute;
+  right: -15px;
+  top: 52%;
+  z-index: 2;
+  color: var(--chart-accent);
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.ring-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.ring {
+  --ring-value: 0;
+  display: grid;
+  width: 116px;
+  height: 116px;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--panel) 0 54%, transparent 55%),
+    conic-gradient(var(--chart-accent) calc(var(--ring-value) * 1%), var(--chart-track) 0);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.ring span {
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ring-label {
+  margin-bottom: 8px;
+  color: var(--text-strong);
+  font-weight: 800;
+}
+
+.ring-detail {
+  margin-bottom: 0;
+  font-size: var(--fs-small);
+}
+
+.bar-list {
+  display: grid;
+  gap: 14px;
+}
+
+.bar-row {
+  display: grid;
+  gap: 7px;
+}
+
+.bar-row-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--chart-label);
+  font-size: var(--fs-small);
+}
+
+.bar-row-head b {
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+}
+
+.bar-track {
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--chart-track);
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  min-width: 8px;
+  border-radius: inherit;
+}
+
+.chart-1 { background: var(--chart-1); }
+.chart-2 { background: var(--chart-2); }
+.chart-3 { background: var(--chart-3); }
+.chart-4 { background: var(--chart-4); }
+.chart-5 { background: var(--chart-5); }
+.chart-6 { background: var(--chart-6); }
+.chart-7 { background: var(--chart-7); }
+.chart-8 { background: var(--chart-8); }
+
+.pipeline-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.pipeline-item {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(12, 32, 52, 0.66);
+}
+
+.pipeline-item p {
+  margin: 0;
+  font-size: var(--fs-small);
+}
+
 .channel-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -495,8 +655,13 @@ code {
 
   .focus-strip,
   .kpi-grid,
-  .channel-grid {
+  .channel-grid,
+  .signal-map {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .signal-arrow {
+    display: none;
   }
 }
 
@@ -520,7 +685,12 @@ code {
   .focus-strip,
   .kpi-grid,
   .channel-grid,
+  .signal-map,
   .event-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .ring-card {
     grid-template-columns: 1fr;
   }
 }
