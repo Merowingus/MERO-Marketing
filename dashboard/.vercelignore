@@ -1,0 +1,2 @@
+# Local-only dev server — exclude so Vercel serves the folder as static, not as a Node function.
+server.js
