@@ -9,53 +9,63 @@
   --cream: #f5d48d;
   --cream-deep: #c99a3a;
   --cream-ink: #6e5212;
+  --studio-gold: #b18840;
   --midnight: #011631;
 
-  --board: #03101f;
-  --bg: #06182b;
-  --panel: #0a2236;
-  --surface-tint: #0c2034;
-  --surface-cream: #2a2415;
-  --chrome: #082034;
+  --white: #ffffff;
+  --n-50: #eff8fc;
+  --n-75: #fdf4e2;
+  --n-100: #e8eef2;
+  --n-200: #e4ebf0;
+  --n-300: #d3dde6;
+  --n-400: #8c99a8;
+  --n-600: #4a5a6e;
 
-  --text-strong: #eaf3fa;
-  --text-body: #9fb4c6;
-  --text-muted: #5e748a;
+  --board: var(--n-100);
+  --bg: var(--white);
+  --panel: var(--white);
+  --surface-tint: var(--n-50);
+  --surface-cream: var(--n-75);
+  --chrome: #f4f8fb;
 
-  --line: #163349;
-  --line-strong: #1f4159;
+  --text-strong: var(--midnight);
+  --text-body: var(--n-600);
+  --text-muted: var(--n-400);
 
-  --accent: var(--brand-light);
-  --accent-ink: #f19bd8;
-  --accent-tint: #37112d;
+  --line: var(--n-200);
+  --line-strong: var(--n-300);
+
+  --accent: var(--brand);
+  --accent-ink: var(--brand-deep);
+  --accent-tint: var(--brand-tint);
   --highlight: var(--cream);
   --highlight-tint: var(--surface-cream);
   --highlight-ink: var(--cream-ink);
 
-  --success: #3bd17f;
-  --success-tint: #0e2a1c;
+  --success: #12a150;
+  --success-tint: #e7f7ee;
   --warn: #f5d48d;
-  --danger: #f0807f;
+  --danger: #c43c45;
 
-  --chart-1: hsl(var(--brand-h) 78% 60%);
-  --chart-2: hsl(40 78% 62%);
-  --chart-3: hsl(168 52% 52%);
-  --chart-4: hsl(266 60% 70%);
-  --chart-5: hsl(330 70% 68%);
-  --chart-6: hsl(150 48% 56%);
-  --chart-7: hsl(222 65% 68%);
-  --chart-8: hsl(16 78% 66%);
-  --chart-seq-1: var(--brand-light);
+  --chart-1: hsl(var(--brand-h) 72% 44%);
+  --chart-2: hsl(40 62% 48%);
+  --chart-3: hsl(168 50% 38%);
+  --chart-4: hsl(266 52% 54%);
+  --chart-5: hsl(330 62% 52%);
+  --chart-6: hsl(150 44% 42%);
+  --chart-7: hsl(222 58% 52%);
+  --chart-8: hsl(16 70% 54%);
+  --chart-seq-1: var(--brand);
   --chart-seq-2: var(--brand);
   --chart-seq-3: var(--brand-deep);
-  --chart-accent: var(--cream);
+  --chart-accent: var(--studio-gold);
   --chart-accent-ink: var(--cream-ink);
   --chart-grid: var(--line);
   --chart-axis: var(--text-muted);
   --chart-track: var(--surface-tint);
   --chart-label: var(--text-body);
   --chart-pos: var(--success);
-  --chart-neg: #f0807f;
+  --chart-neg: var(--danger);
 
   --font-display: Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -80,8 +90,86 @@
   --radius-lg: 20px;
   --radius-pill: 999px;
 
+  --shadow-card: 0 1px 2px rgba(1, 22, 49, 0.04), 0 6px 24px rgba(1, 22, 49, 0.06);
+  --shadow-pop: 0 8px 30px rgba(1, 22, 49, 0.12);
+
+  --page-bg:
+    linear-gradient(180deg, var(--surface-tint) 0, var(--bg) 360px),
+    var(--bg);
+  --topbar-bg: rgba(255, 255, 255, 0.86);
+  --topbar-border: var(--line);
+  --hero-bg: var(--surface-tint);
+  --hero-card-bg: var(--panel);
+  --card-bg: var(--panel);
+  --soft-card-bg: var(--surface-tint);
+  --table-head-bg: var(--surface-tint);
+  --signal-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(239, 248, 252, 0.92)),
+    radial-gradient(circle at 20% 0%, rgba(177, 136, 64, 0.14), transparent 70%);
+  --danger-bg:
+    linear-gradient(180deg, rgba(253, 244, 226, 0.94), rgba(255, 255, 255, 0.98));
+  --logo-tile-bg: rgba(255, 255, 255, 0.66);
+  --button-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --board: #03101f;
+  --bg: #06182b;
+  --panel: #0a2236;
+  --surface-tint: #0c2034;
+  --surface-cream: #2a2415;
+  --chrome: #082034;
+
+  --text-strong: #eaf3fa;
+  --text-body: #9fb4c6;
+  --text-muted: #5e748a;
+
+  --line: #163349;
+  --line-strong: #1f4159;
+
+  --accent: var(--brand-light);
+  --accent-ink: #f19bd8;
+  --accent-tint: #37112d;
+
+  --success: #3bd17f;
+  --success-tint: #0e2a1c;
+  --danger: #f0807f;
+
+  --chart-1: hsl(var(--brand-h) 78% 60%);
+  --chart-2: hsl(40 78% 62%);
+  --chart-3: hsl(168 52% 52%);
+  --chart-4: hsl(266 60% 70%);
+  --chart-5: hsl(330 70% 68%);
+  --chart-6: hsl(150 48% 56%);
+  --chart-7: hsl(222 65% 68%);
+  --chart-8: hsl(16 78% 66%);
+  --chart-seq-1: var(--brand-light);
+  --chart-seq-2: var(--brand);
+  --chart-seq-3: var(--brand-deep);
+  --chart-accent: var(--cream);
+  --chart-neg: var(--danger);
+
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
   --shadow-pop: 0 10px 34px rgba(0, 0, 0, 0.45);
+
+  --page-bg:
+    radial-gradient(circle at 20% 0%, rgba(210, 78, 166, 0.2), transparent 32rem),
+    radial-gradient(circle at 90% 8%, rgba(245, 212, 141, 0.13), transparent 26rem),
+    var(--board);
+  --topbar-bg: rgba(6, 24, 43, 0.84);
+  --topbar-border: var(--line);
+  --hero-bg: linear-gradient(135deg, rgba(10, 34, 54, 0.96), rgba(8, 24, 43, 0.9));
+  --hero-card-bg: rgba(10, 34, 54, 0.78);
+  --card-bg: rgba(10, 34, 54, 0.78);
+  --soft-card-bg: rgba(6, 24, 43, 0.7);
+  --table-head-bg: rgba(12, 32, 52, 0.85);
+  --signal-bg:
+    linear-gradient(180deg, rgba(12, 32, 52, 0.86), rgba(7, 25, 43, 0.74)),
+    radial-gradient(circle at 20% 0%, rgba(245, 212, 141, 0.08), transparent 70%);
+  --danger-bg:
+    linear-gradient(180deg, rgba(42, 36, 21, 0.76), rgba(10, 34, 54, 0.78));
+  --logo-tile-bg: rgba(255, 255, 255, 0.04);
+  --button-text: #06182b;
 }
 
 * {
@@ -91,10 +179,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(210, 78, 166, 0.2), transparent 32rem),
-    radial-gradient(circle at 90% 8%, rgba(245, 212, 141, 0.13), transparent 26rem),
-    var(--board);
+  background: var(--page-bg);
   color: var(--text-strong);
   font-family: var(--font-body);
 }
@@ -109,6 +194,95 @@ a {
   padding: 28px;
 }
 
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: 64px;
+  margin-bottom: var(--sp-5);
+  padding: 10px 14px;
+  border: 1px solid var(--topbar-border);
+  border-radius: var(--radius-lg);
+  background: var(--topbar-bg);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(18px);
+}
+
+.studio-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text-strong);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.studio-brand span span {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topbar-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navlink {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-body);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navlink:hover {
+  color: var(--text-strong);
+  background: var(--surface-tint);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--panel);
+  color: var(--text-strong);
+  font: 700 13px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.theme-toggle-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--highlight);
+  box-shadow: inset 0 0 0 4px var(--panel);
+}
+
+[data-theme="dark"] .theme-toggle-dot {
+  background: var(--accent);
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 390px;
@@ -117,7 +291,7 @@ a {
   padding: 26px;
   border: 1px solid var(--line);
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(10, 34, 54, 0.96), rgba(8, 24, 43, 0.9));
+  background: var(--hero-bg);
   box-shadow: var(--shadow-pop);
 }
 
@@ -133,7 +307,7 @@ a {
   object-fit: contain;
   padding: 12px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--logo-tile-bg);
   border: 1px solid var(--line-strong);
 }
 
@@ -183,7 +357,7 @@ p {
 .channel-card {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background: rgba(10, 34, 54, 0.78);
+  background: var(--card-bg);
   box-shadow: var(--shadow-card);
 }
 
@@ -192,6 +366,7 @@ p {
   flex-direction: column;
   gap: 14px;
   padding: 20px;
+  background: var(--hero-card-bg);
 }
 
 .button {
@@ -203,7 +378,7 @@ p {
   padding: 0 16px;
   border-radius: var(--radius-sm);
   background: var(--accent);
-  color: #06182b;
+  color: var(--button-text);
   font-weight: 800;
   text-decoration: none;
 }
@@ -241,7 +416,7 @@ p {
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: rgba(6, 24, 43, 0.7);
+  background: var(--soft-card-bg);
 }
 
 .focus-item span {
@@ -274,11 +449,15 @@ p {
 
 .pill-watch {
   background: var(--highlight-tint);
+  color: var(--highlight-ink);
+}
+
+[data-theme="dark"] .pill-watch {
   color: var(--highlight);
 }
 
 .pill-next {
-  background: rgba(245, 212, 141, 0.95);
+  background: var(--highlight);
   color: var(--highlight-ink);
 }
 
@@ -322,9 +501,7 @@ p {
   padding: 16px;
   border: 1px solid var(--chart-grid);
   border-radius: var(--radius-md);
-  background:
-    linear-gradient(180deg, rgba(12, 32, 52, 0.86), rgba(7, 25, 43, 0.74)),
-    radial-gradient(circle at 20% 0%, rgba(245, 212, 141, 0.08), transparent 70%);
+  background: var(--signal-bg);
 }
 
 .signal-node h3 {
@@ -368,7 +545,7 @@ p {
     radial-gradient(circle at center, var(--panel) 0 54%, transparent 55%),
     conic-gradient(var(--chart-accent) calc(var(--ring-value) * 1%), var(--chart-track) 0);
   border: 1px solid var(--line);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .ring span {
@@ -448,7 +625,7 @@ p {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: rgba(12, 32, 52, 0.66);
+  background: var(--soft-card-bg);
 }
 
 .pipeline-item p {
@@ -511,7 +688,7 @@ td {
 
 th {
   color: var(--text-muted);
-  background: rgba(12, 32, 52, 0.85);
+  background: var(--table-head-bg);
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -553,7 +730,7 @@ tr:last-child td {
 }
 
 .danger-card {
-  background: linear-gradient(180deg, rgba(42, 36, 21, 0.76), rgba(10, 34, 54, 0.78));
+  background: var(--danger-bg);
 }
 
 .check-list li {
@@ -632,7 +809,7 @@ tr:last-child td {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: rgba(12, 32, 52, 0.72);
+  background: var(--soft-card-bg);
 }
 
 .link-row span {
@@ -641,7 +818,7 @@ tr:last-child td {
 }
 
 code {
-  color: var(--highlight);
+  color: var(--chart-accent);
   font-family: var(--font-mono);
   font-size: 12px;
   overflow-wrap: anywhere;
@@ -668,6 +845,17 @@ code {
 @media (max-width: 700px) {
   .shell {
     padding: 14px;
+  }
+
+  .topbar {
+    position: static;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .hero,

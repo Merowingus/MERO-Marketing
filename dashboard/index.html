@@ -1,16 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MERO Marketing Command Center</title>
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("mero-dashboard-theme");
+          document.documentElement.dataset.theme = savedTheme === "dark" ? "dark" : "light";
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="shell">
+      <div class="topbar">
+        <a class="studio-brand" href="https://www.merowingus.com/" target="_blank" rel="noreferrer">
+          <img class="topbar-logo theme-logo" data-theme-logo src="assets/logo.png" alt="Merowingus Studio logo" />
+          <span>Merowingus <span>Studio</span></span>
+        </a>
+        <div class="topbar-actions">
+          <a class="navlink" href="https://www.merowingus.com/" target="_blank" rel="noreferrer">Studio site</a>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch dashboard theme" aria-pressed="false">
+            <span class="theme-toggle-dot" aria-hidden="true"></span>
+            <span id="theme-label">Dark</span>
+          </button>
+        </div>
+      </div>
+
       <header class="hero">
         <div class="brand-lockup">
-          <img class="brand-logo" src="assets/logo-dark.png" alt="Merowingus Studio logo" />
+          <img id="brand-logo" class="brand-logo theme-logo" data-theme-logo src="assets/logo.png" alt="Merowingus Studio logo" />
           <div>
             <div class="eyebrow">Merowingus Studio · MERO Marketing</div>
             <h1 id="dashboard-title">Command Center</h1>
@@ -192,6 +216,30 @@
       const toneClass = (tone) => `pill pill-${tone || "watch"}`;
       const cell = (value) => `<td>${value || "pending"}</td>`;
       const toneLabel = (tone) => tone || "watch";
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeLabel = document.getElementById("theme-label");
+
+      function applyTheme(theme) {
+        const safeTheme = theme === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = safeTheme;
+        document.querySelectorAll("[data-theme-logo]").forEach((logo) => {
+          logo.src = safeTheme === "dark" ? "assets/logo-dark.png" : "assets/logo.png";
+        });
+        themeToggle.setAttribute("aria-pressed", safeTheme === "dark" ? "true" : "false");
+        themeLabel.textContent = safeTheme === "dark" ? "Light" : "Dark";
+        try {
+          localStorage.setItem("mero-dashboard-theme", safeTheme);
+        } catch {
+          // localStorage can be unavailable in strict local contexts; theme still works for this session.
+        }
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(nextTheme);
+      });
+
+      applyTheme(document.documentElement.dataset.theme);
 
       function countBy(items, key) {
         return items.reduce((acc, item) => {
