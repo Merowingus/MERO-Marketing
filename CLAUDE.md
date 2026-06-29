@@ -45,7 +45,15 @@ loaded as the system prompt; it reads a product + a strategy (fuel) and produces
    + rate-limits later (protect the key).
 5. **Honest marketing.** No spam, no fake engagement, no scraping. Trust is the asset.
 6. **Marketing belongs in product plans.** Output here feeds the studio Planner's marketing DoD.
-7. **Environment:** Windows / PowerShell. Absolute paths.
+7. **Platform base, not tool internals.** What lets *other* Studio products plug in is the **shared
+   layer** (design tokens · auth/tenant+RLS · the agentic engine · the contract/MCP convention) —
+   **never** the internals of one tool. The pattern generalizes; the schema does not. Tools stay
+   **parallel siblings**; cross-product work is orchestrated by **MERO Product (the Planner)**. Build
+   marketing concretely on the shared stack now, keep the seams clean, and extract platform packages
+   only when the second tool arrives (rule of three). See
+   [`docs/architecture/mero-marketing-command-center-online-architecture.md`](docs/architecture/mero-marketing-command-center-online-architecture.md)
+   → "Fit within the Studio platform".
+8. **Environment:** Windows / PowerShell. Absolute paths.
 
 ## Map
 

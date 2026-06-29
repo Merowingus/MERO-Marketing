@@ -1,151 +1,238 @@
 # MERO Marketing Command Center — online architecture
 
+> **Status:** v2 (2026-06-29). Supersedes the v1 "online static" draft. Locks the stack, the
+> multi-product/multi-tenant model, and adds the actions/MCP layer. This is the shared plan for
+> **Codex** (data/content model, marketing) and **Claude Code** (app + backend in the Studio).
+
 ## Purpose
 
-MERO Marketing Command Center is the online control room for marketing work across Merowingus Studio
-products. The first product is Divergentum, but the system must be reusable for future products.
+MERO Marketing Command Center is the online control room for marketing across Merowingus Studio
+products. First product is **Divergentum**; the system is built to be reusable for every next product
+**and** to grow into a multi-tenant SaaS for other founders.
 
-The command center should show:
+It shows: current focus · active channels · published assets · running experiments · planned work ·
+manual + automated metrics · next actions · parked work.
 
-- current marketing focus;
-- active channels;
-- published assets;
-- running experiments;
-- planned work;
-- manual and automated metrics;
-- next actions;
-- parked work that must not distract the current launch.
+The long-term goal is not a report. It is an **operating system for marketing decisions** — read
+first, then act. "Command center" = it will eventually **run** marketing (publish, trigger agents,
+record results), not only display it. That control layer is built gradually; see [Actions / MCP
+layer](#7-actions--mcp-layer-grows-over-time).
 
-The long-term goal is not a pretty report. The goal is an operating system for marketing decisions.
+## Locked decisions (2026-06-29)
+
+These were open questions in v1. They are now decided and drive the rest of the document.
+
+1. **Future SaaS → multi-tenant.** Every stored row carries a `tenant_id` from day one, even though
+   there is exactly one tenant (Mykola) today. Tenant isolation is enforced at the database layer
+   (Row-Level Security), not in app code.
+2. **Multi-product from day one.** The UI has a product selector; Divergentum is the default. One
+   tenant owns many products. `tenant → products → campaigns → channels → assets/experiments/metrics`.
+3. **Read-first command center.** Phase 1–3 are about *seeing* state on a real backend. The
+   actions/MCP layer (write, run agents from the web) comes later, in deliberate small steps.
+4. **Stack is decided** (see next section). There is no "static online" phase — Phase 1 already needs
+   a small backend, so we name it honestly.
+5. **One design system, shared by reference.** The app imports Studio design tokens; it must not
+   re-define them. (v1's local dashboard duplicated tokens — that drift stops here.)
+
+## Stack
+
+| Concern | Choice | Why |
+|---|---|---|
+| App framework | **Next.js (TypeScript)** | public + authed routes in one app; API routes for upload/connectors; same language as the Anthropic Agent SDK for the later MCP layer. |
+| Hosting / deploy | **Vercel** | zero-ops deploys, cron, serverless functions, one domain → many surfaces. |
+| Database | **Supabase Postgres** | relational model the data already implies; **Row-Level Security** is purpose-built for multi-tenant SaaS. |
+| Auth | **Supabase Auth** | Mykola-only now, open registration later, no rewrite. |
+| Secrets (connector tokens) | **Supabase Vault / server-side env** | GA4 / social tokens stored encrypted, server-side only, never in frontend JS. |
+| Scheduling | **Supabase cron (pg_cron) / Vercel cron** | periodic connector runs. |
+| Design system | **Shared tokens package** (from `Studio/website/Design/tokens`) | one source of truth for look across marketing site + app. |
+
+Cost: starts on free tiers ($0). Pro tiers (~$20–25/mo each) only when usage demands. Works on Windows.
+
+**Alternative on record:** Cloudflare (Pages + Workers + D1 + Access) — cheaper at scale, more
+control, but Auth + multi-tenant must be assembled by hand. Revisit only if Supabase limits/cost bite.
+
+## Site shape — one domain, two surfaces
+
+"One website, one design system" = **one domain + shared design tokens**, not one HTML file.
+
+- **Marketing site** — `merowingus.com` (home, products, tools, blog). Public, SEO-important, mostly
+  static. **Not rewritten** by this project; it keeps its current static form.
+- **Command Center (this project)** — the SaaS app, behind auth, at **`app.merowingus.com`** (or
+  `merowingus.com/tools/marketing` — a routing detail). Dynamic, Next.js + Supabase.
+
+Both consume the same shared design tokens, so they look like one product.
+
+### Repo & deploy strategy
+
+The end state is a **monorepo** (`apps/marketing`, `apps/command-center`, `packages/design-system`,
+`packages/schema`) deployed by Vercel. **Not built today.** For now:
+
+- The local prototype keeps living in `C:\CODE\MERO MARKETING\dashboard\` (static, throwaway-friendly).
+- Its `dashboard/data.js` is treated as the **fixture / shape of the future Postgres tables**, not
+  production code.
+- Integration between product work and the Studio site happens via **automation (shared token
+  package + CI/submodule), never manual copy-paste.** Manual porting is the drift we are avoiding.
+
+## Fit within the Studio platform
+
+> **The base for connecting other Studio products is the shared platform layer — not the internals of
+> any one tool.** The pattern generalizes; the schema does not.
+
+Per the Studio structure source of truth (`MEROWINGUS Studio/strategy/agentic-engine.md`): MERO tools
+(Marketing, SEO, Job Hunt, Product) are **parallel siblings** — separate repos, separate users,
+independent Lean hypotheses. They are **not** fused into one monolith. **MERO Product (the Planner) is
+the orchestrator / front door** that calls each tool.
+
+So the command center is **the first tool to stand on the shared stack**, not the platform hub. What
+becomes reusable for the next product is the **shared layer**, built once and consumed by all:
+
+| Shared platform layer (the base) | Status here |
+|---|---|
+| **Design tokens / UI** (from `Studio/website/Design/tokens`) | imported by reference, never re-declared |
+| **Auth + tenant + RLS** (Supabase) | one tenant model + RLS, reusable by every tool |
+| **Agentic engine** (Vercel serverless → loads a SKILL → Claude API → structured JSON) | the canon engine; this app runs on it |
+| **Contract + MCP convention** (normalized ingest + provenance, exposed via an MCP server) | `snapshot.v1` is the **first instance** of the pattern |
+
+What stays **tool-specific** (never centralized into a "god schema"):
+
+- The marketing domain model (campaigns, channels, metrics, experiments) and `snapshot.v1` itself.
+- Job Hunt (jobs/resumes/interviews) and SEO (keywords/rankings/briefs) define their **own** domain
+  schemas. They copy the **shape/pattern** of `snapshot.v1`, not the schema.
+
+**Build rule (don't over-abstract early):** build marketing concretely on the shared stack now, but
+keep the seams clean — tokens from the shared package, engine + auth so a second tool can take them,
+and `snapshot.v1` written as *the example other tools will copy*. Extract the platform packages
+(`packages/design-system`, `packages/engine`, `packages/auth`) only when the **second** tool arrives
+(rule of three) — so the abstraction is discovered, not guessed.
+
+**Orchestration:** cross-product work is driven from the Planner (MERO Product); each tool exposes its
+model via MCP so the Planner — and Claude — can read state and (gated) act across tools.
 
 ## Product principle
 
-One dashboard, many data sources.
+**One model, many data sources.** The UI never cares whether a metric came from a hand-uploaded file,
+GA4, TikTok, Instagram, Reddit, YouTube, or a future product event stream. Every source is normalized
+into the same internal shape, and every metric carries its provenance.
 
-The UI should not care whether a metric came from a hand-uploaded update file, GA4, TikTok, Instagram,
-Reddit, YouTube, or a future internal product event stream. Every source must be normalized into the
-same internal data model.
-
-## Phased rollout
-
-### Phase 0 — local MVP
-
-Status: exists in `C:\CODE\MERO MARKETING\dashboard\`.
-
-- Static HTML dashboard.
-- Data lives in `dashboard/data.js`.
-- Metrics are manual or pending.
-- Uses Merowingus Studio design tokens and data-viz language.
-- Runs locally through `dashboard/server.js`.
-
-This phase proves the layout, the data vocabulary, and the decision workflow.
-
-### Phase 1 — online static command center with upload updates
-
-Target: publish under the Merowingus Studio website, most likely:
-
-`merowingus.com/tools/marketing`
-
-or behind a private route:
-
-`merowingus.com/internal/marketing`
-
-Core capability:
-
-- The dashboard is online.
-- Mykola can upload an update file.
-- The app validates the file.
-- Valid updates are stored as snapshots.
-- The visible dashboard updates from the latest accepted snapshot.
-
-No live platform integrations are required in this phase.
-
-### Phase 2 — authenticated online dashboard
-
-Add authentication and private editing:
-
-- Mykola-only access first.
-- Optional public read-only progress page later.
-- Upload history.
-- Rollback to previous snapshot.
-- Basic audit log: who uploaded what and when.
-
-### Phase 3 — direct analytics connectors
-
-Replace or supplement manual update files with direct data sources:
-
-- Google Analytics 4 for website traffic, UTM, signups, activation, purchase.
-- TikTok for video and profile metrics where account/API access allows it.
-- Instagram / Reels through Meta APIs where account type and permissions allow it.
-- Reddit through OAuth/API or approved manual export.
-- YouTube through YouTube Data / Analytics APIs.
-- Divergentum backend telemetry for `turn_taken`, character creation, session depth, purchases,
-  and returning players.
-
-Manual upload remains as a fallback even after connectors exist.
-
-## Recommended architecture
+## Architecture overview
 
 ```mermaid
 flowchart LR
-    A["MERO Marketing files\nplans, experiments, assets"] --> N["Normalized marketing model"]
-    B["Upload update file\nJSON/CSV/Markdown package"] --> V["Validation layer"]
-    V --> N
-    C["GA4 connector"] --> N
-    D["TikTok connector"] --> N
-    E["Instagram connector"] --> N
-    F["Reddit connector"] --> N
-    G["YouTube connector"] --> N
-    H["Divergentum backend events"] --> N
-    N --> S["Snapshot store"]
-    S --> API["Dashboard API"]
-    API --> UI["Online Command Center UI"]
+    subgraph Sources
+      A["MERO Marketing files\nplans, experiments, assets"]
+      B["Upload update file\nJSON snapshot"]
+      C["GA4 connector"]
+      D["TikTok connector"]
+      E["Instagram connector"]
+      F["Reddit connector"]
+      G["YouTube connector"]
+      H["Divergentum backend events"]
+    end
+    B --> V["Validation layer\n(schema vN)"]
+    A --> N
+    V --> N["Normalized model\n(tenant-scoped)"]
+    C --> N
+    D --> N
+    E --> N
+    F --> N
+    G --> N
+    H --> N
+    N --> S["Snapshot store\n(Supabase Postgres + RLS)"]
+    S --> API["Dashboard API\n(Next.js)"]
+    API --> UI["Command Center UI\n(product selector, read-first)"]
+    ACT["Actions / MCP layer\n(write — later)"] -. future .-> N
+    UI -. future .-> ACT
 ```
 
 ## Application layers
 
-### 1. UI layer
+### 1. UI layer (read-first)
 
-Responsibilities:
-
-- Render campaign state.
-- Render channel cards.
-- Render data-viz cards and charts.
-- Show upload button.
-- Show validation results.
-- Show latest snapshot timestamp.
-- Show next actions and parked work.
-
-Design requirements:
-
-- Use Merowingus Studio design system.
-- Use MERO Marketing theme accent.
-- Use Studio data-viz tokens from `website/Design/tokens/charts.css`.
-- Keep the interface practical and internal-tool-like, not a marketing landing page.
+- Product selector (default Divergentum); active product from `?product=<id>`, fallback `localStorage`.
+- Renders campaign state, channel cards, data-viz cards, KPIs, experiments, next actions, parked work.
+- Shows latest snapshot timestamp, upload status, validation results.
+- **Reusability rule:** no product-specific section is hardcoded in markup. Product-specific blocks
+  (e.g. Divergentum's "TikTok launch batch" table) are a **generic, data-driven `featuredTable`**.
+  Missing or empty data → the card hides, it does not break.
+- **Design rule:** import shared Studio tokens (brand, neutrals, `charts.css` data-viz scale). Do not
+  re-declare tokens locally. Practical, internal-tool feel — not a landing page.
 
 ### 2. Upload layer
 
-Responsibilities:
+- Accept update files, parse, validate `schemaVersion`, reject unknown/malformed fields, show a
+  human-readable validation report, store valid snapshots.
+- v1 format: **JSON** (maps cleanly to the model; later produced by agents/scripts/connectors).
+- Runs as a **server-side Next.js API route** (not in the browser) so it can write to Postgres safely.
 
-- Accept update files.
-- Parse the file.
-- Validate schema version.
-- Reject unknown or malformed fields.
-- Show a human-readable validation report.
-- Store valid snapshots.
+### 3. Normalization layer
 
-Accepted v1 format should be JSON.
+Converts every source into one internal shape, keeps source quirks out of the UI, attaches provenance.
 
-Reason: JSON maps cleanly to the current `dashboard/data.js` model and can later be generated by
-agents, scripts, or connectors.
+Every metric carries:
+
+- `tenantId`
+- `productId`
+- `source`  · `sourceAccount`
+- `channel` · `campaign` · `assetId` *(nullable — see note)*
+- `metricName` · `value` · `unit`
+- `periodStart` · `periodEnd` · `collectedAt` *(stored UTC)*
+- `confidence` — quality level (`estimated` | `reported` | `verified`), **separate from `source`**
+- `dedupeKey` — `tenantId:source:productId:channel:assetId:metricName:periodStart` for idempotent upsert
+
+> **Asset-less metrics:** channel- or campaign-level numbers (e.g. GA4 sessions) have `assetId = null`.
+> The UI must handle null assetId (roll up to channel/campaign).
 
 Example:
 
 ```json
 {
+  "tenantId": "merowingus",
+  "productId": "divergentum",
+  "source": "manual_upload",
+  "confidence": "reported",
+  "channel": "tiktok",
+  "campaign": "divergentum_launch_june_2026",
+  "assetId": "tiktok_wizard_horde_2026_06_27",
+  "metricName": "views",
+  "value": 0,
+  "unit": "count",
+  "periodStart": "2026-06-27T00:00:00Z",
+  "periodEnd": "2026-06-28T00:00:00Z",
+  "collectedAt": "2026-06-29T16:00:00Z"
+}
+```
+
+### 4. Storage layer (Supabase Postgres)
+
+Every table carries `tenant_id` with an RLS policy that scopes rows to the signed-in tenant.
+
+Tables: `tenants` · `products` · `campaigns` · `channels` · `assets` · `experiments` · `metrics` ·
+`snapshots` · `uploads` · `actions` · `connector_accounts` · `connector_runs` · `audit_log`.
+
+- `channels` is a **per-product registry**, not a fixed enum — different products use different
+  channels. Validation checks against this registry, not a hardcoded list.
+- `metrics` upserts on `dedupeKey` so re-uploading a snapshot does not duplicate rows.
+
+### 5. Connector layer
+
+Each connector is an isolated server-side function: authenticate · fetch raw · map to normalized ·
+store raw response for debugging · report rate-limit/permission problems · **never block the dashboard
+if it fails**. Credentials live in Vault, server-side only.
+
+Order to build: `ga4` → `divergentum_backend` → `tiktok` → `instagram` → `reddit` → `youtube`.
+Exact API permissions/endpoints are verified at implementation time (social APIs change often).
+
+### 6. Snapshot / upload contract
+
+The upload file is **the contract**, not a hack. Agents, scripts, manual exports, and future
+connectors all produce the same shape — so manual work today is automation-compatible tomorrow.
+
+```json
+{
   "schemaVersion": "mero.marketing.snapshot.v1",
-  "generatedAt": "2026-06-29T12:00:00-04:00",
-  "product": "Divergentum",
+  "generatedAt": "2026-06-29T16:00:00Z",
+  "tenantId": "merowingus",
+  "productId": "divergentum",
   "campaign": "divergentum_launch_june_2026",
   "channels": [],
   "experiments": [],
@@ -155,273 +242,128 @@ Example:
 }
 ```
 
-### 3. Normalization layer
+**Reject:** missing `schemaVersion` · unknown tenant/product · channel not in the product's registry ·
+metric without period · metric without source · non-numeric numeric fields · duplicate asset ids in
+one snapshot. **Warn but accept:** missing optional notes · missing social metrics · pending values ·
+parked channels.
 
-Responsibilities:
+The schema lives as a **versioned JSON Schema file** shared by both repos; producer (Codex) and
+consumer (Claude Code) validate against the *same* file. It is the contract between the two agents.
 
-- Convert all data sources into the same internal shape.
-- Keep source-specific quirks out of the UI.
-- Attach provenance to every metric.
+Later formats (v2): CSV metric import · Markdown campaign update · ZIP package (assets + JSON manifest).
 
-Every metric should carry:
+### 7. Actions / MCP layer (grows over time)
 
-- `source`
-- `sourceAccount`
-- `channel`
-- `campaign`
-- `assetId`
-- `metricName`
-- `value`
-- `unit`
-- `periodStart`
-- `periodEnd`
-- `collectedAt`
-- `confidence`
+The command center *manages* marketing, not just displays it. This layer is **designed now,
+implemented later, one small step at a time**.
 
-Example:
+- **Model:** an `actions` table records intent → status → result (publish a post, trigger an agent
+  run, mark an experiment verdict, start/stop a campaign). Read-first phases already write to it for
+  manual "next actions"; automation fills it in later.
+- **MCP:** the same Postgres model is exposed to the Studio agentic engine through an **MCP server**,
+  so Claude can read campaign state and (gated) perform actions. Because the stack is TypeScript, the
+  Anthropic Agent SDK + MCP server live in the same codebase.
+- **Gating (CLAUDE.md rule 4):** any action that calls a paid API or writes to a channel ships
+  **closed/self-only first**, with rate limits, before any public/multi-tenant exposure.
 
-```json
-{
-  "source": "manual_upload",
-  "channel": "tiktok",
-  "campaign": "divergentum_launch_june_2026",
-  "assetId": "tiktok_wizard_horde_2026_06_27",
-  "metricName": "views",
-  "value": 0,
-  "unit": "count",
-  "periodStart": "2026-06-27",
-  "periodEnd": "2026-06-28",
-  "collectedAt": "2026-06-29T12:00:00-04:00",
-  "confidence": "manual"
-}
-```
-
-### 4. Storage layer
-
-Minimum viable storage:
-
-- snapshots;
-- normalized metrics;
-- campaign definitions;
-- asset registry;
-- experiment log;
-- upload history.
-
-Recommended tables or collections:
-
-- `campaigns`
-- `channels`
-- `assets`
-- `experiments`
-- `metrics`
-- `snapshots`
-- `uploads`
-- `actions`
-- `connector_accounts`
-- `connector_runs`
-
-### 5. Connector layer
-
-Each connector should be isolated.
-
-Connector responsibilities:
-
-- authenticate;
-- fetch raw metrics;
-- map raw metrics to normalized metrics;
-- store raw response when useful for debugging;
-- report rate limits and permission problems;
-- never block the whole dashboard if one connector fails.
-
-Initial connectors to design:
-
-1. `ga4`
-2. `divergentum_backend`
-3. `tiktok`
-4. `instagram`
-5. `reddit`
-6. `youtube`
-
-Exact API permissions and endpoints must be verified at implementation time because social platform
-APIs change often.
-
-## Update file strategy
-
-The upload file is not a temporary hack. It is the contract.
-
-Agents, scripts, manual exports, and future connectors should all be able to produce the same
-snapshot shape. That means manual work today becomes compatible with automation tomorrow.
-
-### Upload file types
-
-V1:
-
-- JSON snapshot only.
-
-V2:
-
-- CSV metric import.
-- Markdown campaign update.
-- ZIP package with assets + JSON manifest.
-
-### Validation rules
-
-The upload must reject:
-
-- missing `schemaVersion`;
-- unknown product;
-- unknown channel;
-- metrics without period;
-- metrics without source;
-- numeric fields that are not numbers;
-- duplicated asset ids inside the same snapshot.
-
-The upload may warn but accept:
-
-- missing optional notes;
-- missing social platform metrics;
-- pending values;
-- parked channels.
-
-## Data model
-
-### Product
+## Data model (tenant- and product-scoped)
 
 ```json
-{
-  "id": "divergentum",
-  "name": "Divergentum",
-  "website": "https://www.divergentum.com/"
-}
-```
+// Tenant (new — reserves the SaaS dimension)
+{ "id": "merowingus", "name": "Merowingus Studio", "plan": "internal" }
 
-### Campaign
+// Product
+{ "id": "divergentum", "tenantId": "merowingus", "name": "Divergentum",
+  "website": "https://www.divergentum.com/" }
 
-```json
-{
-  "id": "divergentum_launch_june_2026",
-  "productId": "divergentum",
-  "status": "running",
-  "focus": "Reddit foundation + TikTok first batch",
-  "startDate": "2026-06-24"
-}
-```
+// Campaign
+{ "id": "divergentum_launch_june_2026", "tenantId": "merowingus", "productId": "divergentum",
+  "status": "running", "focus": "Reddit foundation + TikTok first batch", "startDate": "2026-06-24" }
 
-### Channel
+// Channel (per-product registry entry)
+{ "id": "tiktok", "tenantId": "merowingus", "productId": "divergentum", "name": "TikTok",
+  "status": "running", "role": "Visual proof + fast reach", "primaryMetric": "profile visits → signups" }
 
-```json
-{
-  "id": "tiktok",
-  "name": "TikTok",
-  "status": "running",
-  "role": "Visual proof + fast reach",
-  "primaryMetric": "profile visits → signups"
-}
-```
+// Asset
+{ "id": "tiktok_wizard_horde_2026_06_27", "tenantId": "merowingus", "productId": "divergentum",
+  "channel": "tiktok", "type": "video", "title": "Wizard: horde arrives",
+  "publishedAt": "2026-06-27", "url": "", "utmContent": "wizard_horde" }
 
-### Asset
-
-```json
-{
-  "id": "tiktok_wizard_horde_2026_06_27",
-  "channel": "tiktok",
-  "type": "video",
-  "title": "Wizard: horde arrives",
-  "publishedAt": "2026-06-27",
-  "url": "",
-  "utmContent": "wizard_horde"
-}
-```
-
-### Experiment
-
-```json
-{
-  "id": "tiktok_first_launch_batch",
-  "channel": "tiktok",
-  "hypothesis": "Short visual proof can introduce Divergentum faster than text.",
+// Experiment
+{ "id": "tiktok_first_launch_batch", "tenantId": "merowingus", "productId": "divergentum",
+  "channel": "tiktok", "hypothesis": "Short visual proof introduces Divergentum faster than text.",
   "metric": "views, comments, profile visits, website clicks, signups",
-  "status": "running",
-  "verdict": ""
-}
+  "status": "running", "verdict": "" }
 ```
 
-### Metric
+## GA4 setup (per product)
 
-```json
-{
-  "assetId": "tiktok_wizard_horde_2026_06_27",
-  "metricName": "comments",
-  "value": 0,
-  "unit": "count",
-  "source": "manual_upload",
-  "periodStart": "2026-06-27",
-  "periodEnd": "2026-06-28"
-}
-```
+GA4 events/UTM are **product configuration**, not app code (Divergentum's are the first set).
 
-## GA4 setup required for the online dashboard
+Events: `sign_up` · `login` · `purchase` · `turn_taken` · `session_5_turns` · `campaign_started` ·
+`character_created`. Key events: `sign_up` · `session_5_turns` · `purchase`.
 
-Events:
+UTM: `utm_source=tiktok|reddit|blog|discord|youtube|instagram` · `utm_medium=social|community|owned|video`
+· `utm_campaign=<campaign_id>` · `utm_content=<asset_slug>`.
 
-- `sign_up`
-- `login`
-- `purchase`
-- `turn_taken`
-- `session_5_turns`
-- `campaign_started`
-- `character_created`
+The dashboard separates: traffic · signup · activation · return · purchase. GA4 Data API requires
+server-side service-account auth — another reason Phase 1 is not "static".
 
-Key events:
+## Security & access
 
-- `sign_up`
-- `session_5_turns`
-- `purchase`
+- **No "private by obscurity" on a public domain.** Unauthenticated static files on `merowingus.com`
+  are public to anyone with the URL and to crawlers. The command center holds internal strategy and
+  (later) lead data — it is **always behind real auth**.
+- Authenticate every request (Supabase Auth). Tenant isolation via RLS.
+- API/connector tokens encrypted, server-side only, never in frontend JS.
+- Keep upload history + audit log (who uploaded/changed what, when). Allow rollback to a previous
+  snapshot.
 
-UTM convention:
+## Phased rollout
 
-- `utm_source=tiktok|reddit|blog|discord|youtube|instagram`
-- `utm_medium=social|community|owned|video`
-- `utm_campaign=divergentum_launch_june_2026`
-- `utm_content=<asset_slug>`
+### Phase 0 — local prototype (done / ongoing)
 
-The dashboard should separate:
+Static dashboard in `dashboard/` proving layout, data vocabulary, and the decision workflow.
+`data.js` = the shape of the future tables. Throwaway-friendly.
 
-- traffic;
-- signup;
-- activation;
-- return;
-- purchase.
+### Phase 1 — real read-first command center (small first milestone)
 
-## Security and access
+Next.js on Vercel + Supabase. Auth (Mykola only). Tables per the model with `tenant_id` + RLS.
+Product selector (default Divergentum). Dashboard **reads** from Postgres. Seed it from the current
+`data.js` content. *No upload UI, no connectors yet.* This is deliberately the smallest real-stack
+milestone.
 
-Phase 1 can be private by obscurity only if it is local or temporary.
+### Phase 2 — upload + snapshots
 
-For online use:
+JSON snapshot upload → server-side validation against the shared schema → store. Upload history,
+rollback, audit log.
 
-- require authentication;
-- store API tokens server-side only;
-- never expose social or analytics tokens in frontend JavaScript;
-- encrypt connector credentials;
-- keep upload history;
-- allow rollback to a previous snapshot.
+### Phase 3 — connectors (one at a time)
+
+`ga4` first (traffic→signup→activation→purchase), then `divergentum_backend`, then social connectors
+one by one. Manual upload remains a permanent fallback.
+
+### Phase 4+ — actions / MCP
+
+Populate the `actions` model with real automation; expose the MCP server to the Studio engine; enable
+gated write actions (self-only first). This is the long, gradual "manage from the web" build.
 
 ## Recommended implementation path
 
-1. Keep improving the local dashboard until the data model feels stable.
-2. Create `snapshot.v1.json` export/import format.
-3. Add local upload preview in the static dashboard.
-4. Move dashboard UI into the Studio website.
-5. Add a small backend endpoint for upload + validation.
-6. Store accepted snapshots.
-7. Add GA4 connector first.
-8. Add Divergentum backend telemetry second.
-9. Add social connectors one by one.
+1. Keep the local prototype stable; finalize the data shape (incl. `tenantId`/`productId`).
+2. Write the shared `snapshot.v1` **JSON Schema** file (the contract).
+3. Stand up Supabase (tables + RLS) and the Next.js app shell with auth.
+4. Build Phase 1 read-only dashboard reading from Postgres, seeded from `data.js`.
+5. Add the upload + validation route (Phase 2).
+6. Add the GA4 connector (Phase 3), then Divergentum telemetry, then social.
+7. Begin the actions/MCP layer (Phase 4) only after read + ingest are solid.
 
-## Open questions for the next architecture pass
+## Open questions for the next pass
 
-- Should the online dashboard be Mykola-only or have a public read-only progress page?
-- Which hosting path should own auth: Studio website, separate app, or a small serverless admin route?
-- Where should snapshot storage live first: file storage, SQLite, Postgres, Supabase, or another existing Studio backend?
-- Which source is first after upload files: GA4 or Divergentum backend telemetry?
-- Should Claude Code own implementation in `C:\CODE\MEROWINGUS Studio` while Codex owns the model and marketing content in `C:\CODE\MERO MARKETING`?
+- Subdomain (`app.merowingus.com`) vs subpath (`/tools/marketing`) for the app — pick when the Next
+  app is created.
+- When to introduce the monorepo (`packages/design-system`, `packages/schema`) — likely at Phase 1
+  app creation, so the shared token + schema packages exist from the first real build.
+- First action to automate in Phase 4 (record experiment verdict from the web is the safest start).
+- Division of labor stands: Claude Code owns the app + backend in the Studio; Codex owns the
+  data/content model + marketing in MERO Marketing; the JSON Schema is the shared contract.
