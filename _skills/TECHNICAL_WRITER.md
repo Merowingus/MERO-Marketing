@@ -24,6 +24,52 @@ git push
 
 ---
 
+## Слой 0 — Live Command Center (ОБЯЗАТЕЛЬНО когда меняется маркетинговый статус)
+
+Живой дашборд на `marketing.merowingus.com` питается из
+`command-center/lib/dashboard-data.ts` (статический TypeScript, пока нет Supabase Phase 2).
+После работы, которая изменила состояние кампании / канала / эксперимента — обновить этот файл
+и задеплоить, чтобы дашборд отражал реальность.
+
+### Что обновлять (только то, что реально изменилось)
+
+```
+campaign.currentFocus   — текущий фокус одной фразой
+campaign.lastUpdated    — сегодняшняя дата (YYYY-MM-DD)
+campaign.status         — "Launch in progress" / "Running" / и т.д.
+
+focus[]                 — статус-стрип (label / value / tone)
+                          tone: "live" | "running" | "next" | "watch" | "parked"
+
+kpis[]                  — ключевые цифры (если изменились)
+
+channels[].status       — статус канала (Live / Running / Next / Parked)
+channels[].next         — следующий шаг по каналу
+channels[].tone         — "live" | "running" | "next" | "watch" | "parked"
+
+experiments[].status    — "running" | "done"
+experiments[].verdict   — если эксперимент закрыт
+
+nextActions[]           — актуальный список следующих шагов
+                          (синхронизировать с ROADMAP.md "Now")
+```
+
+### Git + деплой (в той же feature-ветке)
+
+```bash
+git add command-center/lib/dashboard-data.ts
+git commit -m "data: update live dashboard — <что изменилось>"
+
+# деплой из папки command-center/
+cd command-center && npx vercel deploy --prod
+```
+
+> **Правило:** `dashboard-data.ts` = временный источник истины до Phase 2 (Supabase).
+> Не вносить данные, которых нет в реальности (zero fabrication).
+> После каждого деплоя — убедиться, что `campaign.lastUpdated` обновлена.
+
+---
+
 ## Слой 1 — Репозиторий (наши doc-файлы)
 Обновить после фичи (только реально затронутое):
 - `ROADMAP.md` — отметить задачу/фазу, обновить очередь.
@@ -57,9 +103,16 @@ git push
 Feature:
 What changed:
 - ...
+Live dashboard (command-center/lib/dashboard-data.ts):
+- [ ] campaign.currentFocus / lastUpdated / status  (if campaign state changed)
+- [ ] focus[] / kpis[]                              (if numbers/status changed)
+- [ ] channels[].status / .next                     (if channel state changed)
+- [ ] experiments[].status / .verdict               (if experiment moved)
+- [ ] nextActions[]                                 (sync with ROADMAP "Now")
+- [ ] vercel deploy --prod  (from command-center/)
 Docs updated (repo):
 - [ ] ROADMAP.md
-- [ ] docs/architecture/…v2 (if architecture changed)
+- [ ] docs/architecture/…v2 + architecture-map.html (if architecture changed)
 - [ ] experiments.md / _skills/* (if needed)
 Coordination journal:
 - [ ] MERO_MARKETING_SYNC.md (log entry + Current state)
