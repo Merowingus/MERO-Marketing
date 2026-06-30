@@ -45,7 +45,15 @@ loaded as the system prompt; it reads a product + a strategy (fuel) and produces
    + rate-limits later (protect the key).
 5. **Honest marketing.** No spam, no fake engagement, no scraping. Trust is the asset.
 6. **Marketing belongs in product plans.** Output here feeds the studio Planner's marketing DoD.
-7. **Environment:** Windows / PowerShell. Absolute paths.
+7. **Platform base, not tool internals.** What lets *other* Studio products plug in is the **shared
+   layer** (design tokens · auth/tenant+RLS · the agentic engine · the contract/MCP convention) —
+   **never** the internals of one tool. The pattern generalizes; the schema does not. Tools stay
+   **parallel siblings**; cross-product work is orchestrated by **MERO Product (the Planner)**. Build
+   marketing concretely on the shared stack now, keep the seams clean, and extract platform packages
+   only when the second tool arrives (rule of three). See
+   [`docs/architecture/mero-marketing-command-center-online-architecture.md`](docs/architecture/mero-marketing-command-center-online-architecture.md)
+   → "Fit within the Studio platform".
+8. **Environment:** Windows / PowerShell. Absolute paths.
 
 ## Map
 
@@ -59,7 +67,33 @@ channels/<name>/     per-channel output (reddit, instagram, tiktok, … each age
 campaigns/<x>/       per-campaign plan + assets (e.g. campaigns/divergentum/)
 experiments.md       experiment → skill loop (what wins becomes the next agent)
 .claude/skills/      the skill-agents (orchestrator, strategy-architect, + one per channel)
+_skills/             development agents (Architect→Developer→Tester→Reviewer→Writer + Router)
+_handoff/            Architect→Developer contract files (per-feature, not deployed)
 ```
+
+## Two agent families (don't mix them)
+
+- **Marketing agents** — `.claude/skills/` (`marketing-orchestrator` + channels: tiktok, reddit, …).
+  Produce marketing *content*. Codex-side of the work.
+- **Development agents** — `_skills/` (`AGENT_ROUTER` + BUSINESS_ANALYST / ARCHITECT / DEVELOPER /
+  TESTER / CODE_REVIEWER / TECHNICAL_WRITER). Build the *software* (dashboard / command center /
+  future Next+Supabase app). Claude Code-side. Start at `_skills/AGENT_ROUTER.md` (`Роут: …`).
+  Adapted from the Studio dev pipeline; see [`_skills/AGENTS_CATALOG.md`](_skills/AGENTS_CATALOG.md).
+
+## Engineering pipeline & Git workflow
+
+Pipeline: `BUSINESS_ANALYST → ARCHITECT → DEVELOPER → TESTER → CODE_REVIEWER → [MERGE←user] →
+TECHNICAL_WRITER`. Deploy: `dashboard/` → `marketing.merowingus.com` (Vercel; manual
+`vercel deploy --prod` for now). `main` = main branch.
+
+- Code features go through `feature/<slug>` → PR → review → **user-only merge**
+  (`gh pr merge <N> --squash --delete-branch`). No agent commits feature code to `main` or merges PRs.
+- Small doc fixes may go straight to `main`.
+- This repo is also worked by **Codex** (content/model). Before dev work read the coordination journal
+  (`coordination/SYNC.md` → `MERO_MARKETING_SYNC.md`); if the working tree has unstaged changes, stop
+  and ask rather than overwriting Codex's work.
+- **Every agent ends with a `NEXT STEP` block** (git state · Done · Next agent · «Роут: …» call · Why ·
+  Блокеры) so the pipeline chains cleanly.
 
 ## Current focus (2026-06-22)
 

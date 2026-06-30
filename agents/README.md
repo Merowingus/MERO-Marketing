@@ -3,6 +3,13 @@
 Channel-per-agent model. Each agent is a skill in `../.claude/skills/<name>/SKILL.md`, knows its
 channel's norms, and stores output in `../channels/<name>/`. Start at `marketing-orchestrator`.
 
+> **Platform base, not tool internals.** These agents are marketing-specific. What lets *other* Studio
+> products plug in is the **shared layer** (design tokens · auth/tenant+RLS · the agentic engine ·
+> the contract/MCP convention), **not** any agent's internals. Tools stay parallel siblings;
+> cross-product orchestration runs through **MERO Product (the Planner)**. Details:
+> [`../docs/architecture/mero-marketing-command-center-online-architecture.md`](../docs/architecture/mero-marketing-command-center-online-architecture.md)
+> → "Fit within the Studio platform".
+
 ## Meta-agents
 | Agent | Role |
 |---|---|

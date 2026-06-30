@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>MERO Marketing — Architecture Map v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand:       hsl(320 88% 41%);
+      --brand-deep:  hsl(320 88% 32%);
+      --brand-tint:  hsl(320 88% 96%);
+      --gold:        #b18840;
+      --gold-tint:   #fdf4e2;
+      --gold-ink:    #6e5212;
+      --midnight:    #011631;
+      --success:     #12a150;
+      --success-tint:#e7f7ee;
+      --danger:      #c43c45;
+      --n100:        #e8eef2;
+      --n200:        #d3dde6;
+      --n400:        #8c99a8;
+      --n600:        #4a5a6e;
+      --bg:          #f5f8fb;
+      --surface:     #ffffff;
+      --font:        'Figtree', system-ui, sans-serif;
+      --mono:        'JetBrains Mono', ui-monospace, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--midnight); font-size: 14px; line-height: 1.5; }
+
+    /* ── Layout ── */
+    .page { max-width: 1160px; margin: 0 auto; padding: 36px 24px 80px; }
+
+    /* ── Header ── */
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
+    .page-title { font-size: 30px; font-weight: 700; margin-bottom: 10px; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge { padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; }
+    .badge-brand  { background: var(--brand-tint); color: var(--brand-deep); }
+    .badge-green  { background: var(--success-tint); color: var(--success); }
+    .badge-gold   { background: var(--gold-tint); color: var(--gold-ink); }
+    .badge-neutral{ background: var(--n100); color: var(--n600); }
+    .page-note    { font-size: 12.5px; color: var(--n600); max-width: 700px; }
+    code { font-family: var(--mono); font-size: 11.5px; background: var(--n100); padding: 1px 5px; border-radius: 4px; }
+
+    /* ── Section ── */
+    .section { margin-top: 44px; }
+    .section-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--n400); margin-bottom: 14px;
+      padding-bottom: 7px; border-bottom: 1px solid var(--n200);
+    }
+
+    /* ── Platform Band ── */
+    .platform-band {
+      background: var(--gold-tint); border: 1.5px solid #e8d8a8;
+      border-radius: 12px; padding: 12px 18px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .platform-label { font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--gold-ink); margin-right: 2px; }
+    .platform-pill { background: var(--gold); color: #fff; border-radius: 999px; padding: 3px 13px; font-size: 12px; font-weight: 600; }
+
+    /* ── Pipeline ── */
+    .pipeline-scroll { overflow-x: auto; padding-bottom: 4px; }
+    .pipeline { display: flex; align-items: stretch; gap: 0; min-width: 860px; margin-top: 16px; }
+    .pipe-col { flex: 1; background: var(--surface); border: 1.5px solid var(--n200); border-radius: 12px; overflow: hidden; }
+    .pipe-head { padding: 9px 14px; font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; border-bottom: 1.5px solid var(--n200); }
+    .ph-src   { background: var(--brand-tint); color: var(--brand-deep); }
+    .ph-norm  { background: #e8f4ff; color: #1a4a7a; }
+    .ph-store { background: var(--success-tint); color: #14573a; }
+    .ph-ui    { background: var(--n100); color: var(--n600); }
+    .pipe-items { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .pi {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 7px 9px; background: var(--bg);
+      border-radius: 8px; border: 1px solid var(--n100); font-size: 12.5px;
+    }
+    .pi.future { opacity: .5; border-style: dashed; }
+    .pi-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .pi-name { font-weight: 600; }
+    .pi-sub  { font-size: 11px; color: var(--n400); }
+    .pipe-arrow {
+      width: 42px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .pipe-arrow::before {
+      content: ''; position: absolute;
+      left: 6px; right: 16px; top: 50%;
+      height: 2px; background: var(--n200); transform: translateY(-50%);
+    }
+    .pipe-arrow::after {
+      content: '▶'; font-size: 11px; color: var(--n400);
+      position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+    }
+
+    /* ── Actions Band ── */
+    .actions-band {
+      margin-top: 12px;
+      border: 1.5px dashed var(--n200); border-radius: 12px;
+      padding: 11px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .ab-label { font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--n400); white-space: nowrap; }
+    .ab-pill  { background: var(--n100); color: var(--n600); border-radius: 8px; padding: 4px 10px; font-size: 12px; font-weight: 500; }
+    .ab-arrow { color: var(--n200); font-size: 15px; }
+
+    /* ── Org Chart ── */
+    .org-wrap { background: var(--surface); border: 1.5px solid var(--n200); border-radius: 12px; padding: 24px; }
+    .org-center { display: flex; flex-direction: column; align-items: center; }
+    .org-node { display: inline-block; border: 1.5px solid var(--n200); border-radius: 10px; background: var(--surface); padding: 10px 20px; font-size: 13px; font-weight: 600; text-align: center; }
+    .org-orchestrator { background: var(--gold-tint); border-color: #e8d8a8; color: var(--gold-ink); }
+    .org-vline { width: 2px; height: 22px; background: var(--n200); margin: 0 auto; }
+    .org-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .org-active { border: 2px solid var(--brand); background: var(--brand-tint); }
+    .org-active .tag { color: var(--brand); }
+    .org-sibling { color: var(--n600); }
+    .org-future  { opacity: .6; border-style: dashed; }
+    .org-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 3px; color: var(--n400); }
+    .org-name { font-size: 13.5px; font-weight: 700; }
+    .org-sub { font-size: 11px; color: var(--n400); margin-top: 2px; }
+    .org-note {
+      margin-top: 14px; padding: 9px 14px;
+      background: var(--n100); border-radius: 8px;
+      font-size: 12px; color: var(--n600);
+    }
+
+    /* ── Data Model ── */
+    .data-model-wrap { background: var(--surface); border: 1.5px solid var(--n200); border-radius: 12px; padding: 20px; overflow-x: auto; }
+    .dm-row { display: flex; align-items: flex-start; gap: 0; min-width: 820px; }
+    .dm-box { border: 1.5px solid var(--n200); border-radius: 10px; padding: 10px 14px; min-width: 120px; background: var(--surface); }
+    .dm-title { font-size: 13px; font-weight: 700; }
+    .dm-id    { font-size: 10px; color: var(--n400); margin-top: 2px; }
+    .dm-fields{ font-size: 10.5px; font-family: var(--mono); color: var(--n600); margin-top: 6px; line-height: 1.65; }
+    .dm-gold  { background: var(--gold-tint); border-color: #e8d8a8; }
+    .dm-gold .dm-title { color: var(--gold-ink); }
+    .dm-brand { background: var(--brand-tint); border-color: hsl(320 70% 85%); }
+    .dm-brand .dm-title { color: var(--brand-deep); }
+    .dm-success { background: var(--success-tint); border-color: #b3e5cc; }
+    .dm-success .dm-title { color: var(--success); }
+    .dm-orange  { background: #fff7ed; border-color: #fed7aa; }
+    .dm-orange .dm-title  { color: #c2410c; }
+    .dm-blue    { background: #f0f9ff; border-color: #bae6fd; }
+    .dm-blue .dm-title    { color: #0369a1; }
+    .dm-arrow { display: flex; align-items: center; align-self: center; padding: 0 4px; }
+    .dm-arrow-line { width: 20px; height: 2px; background: var(--n200); }
+    .dm-arrow-head { color: var(--n400); font-size: 11px; }
+    .dm-leaves { display: flex; flex-direction: column; gap: 8px; }
+
+    /* ── Cards grid ── */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+    .card {
+      background: var(--surface); border: 1.5px solid var(--n200);
+      border-radius: 12px; padding: 16px;
+      border-top: 3px solid var(--n200);
+    }
+    .card.done   { border-top-color: var(--success); }
+    .card.active { border-top-color: var(--brand); }
+    .card.future { border-top-color: var(--n200); opacity: .8; }
+    .card-phase { font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 6px; }
+    .done .card-phase   { color: var(--success); }
+    .active .card-phase { color: var(--brand); }
+    .future .card-phase { color: var(--n400); }
+    .card-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+    .card-desc  { font-size: 12.5px; color: var(--n600); line-height: 1.55; }
+
+    /* ── Roadmap ── */
+    .roadmap { display: flex; flex-direction: column; gap: 10px; }
+    .rm-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--surface); border: 1.5px solid var(--n200);
+      border-radius: 10px; padding: 13px 16px;
+    }
+    .rm-item.current { border-color: var(--brand); }
+    .rm-badge { flex-shrink: 0; padding: 3px 11px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .rm-badge.done    { background: var(--success-tint); color: var(--success); }
+    .rm-badge.current { background: var(--brand-tint); color: var(--brand-deep); }
+    .rm-badge.future  { background: var(--n100); color: var(--n600); }
+    .rm-title { font-size: 13.5px; font-weight: 700; margin-bottom: 3px; }
+    .rm-desc  { font-size: 12px; color: var(--n600); }
+    .rm-progress { margin-top: 6px; font-size: 11.5px; font-weight: 600; color: var(--brand); }
+
+    /* ── Rules ── */
+    .rules { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+    .rule {
+      display: flex; gap: 12px;
+      background: var(--surface); border: 1.5px solid var(--n200);
+      border-radius: 10px; padding: 13px 15px;
+    }
+    .rule-num {
+      flex-shrink: 0; width: 28px; height: 28px;
+      border-radius: 50%; background: var(--brand); color: #fff;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rule-num.hard { background: var(--danger); }
+    .rule-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .rule-desc  { font-size: 12px; color: var(--n600); }
+
+    /* ── File Map ── */
+    .file-map {
+      background: #011631; color: #a8c4e0;
+      border-radius: 12px; padding: 20px 24px;
+      font-family: var(--mono); font-size: 12px;
+      line-height: 1.75; overflow-x: auto;
+    }
+    .fm-dir  { color: hsl(320 88% 70%); font-weight: 600; }
+    .fm-file { color: #a8c4e0; }
+    .fm-note { color: #475569; }
+    .fm-live { color: #86efac; font-weight: 600; }
+
+    /* ── Agent Context ── */
+    .agent-ctx {
+      background: #011631; color: #a8c4e0;
+      border-radius: 12px; padding: 20px 24px;
+      font-family: var(--mono); font-size: 12px;
+      line-height: 1.75; overflow-x: auto;
+    }
+    .ac-head { color: #f0abfc; font-weight: 700; }
+    .ac-key  { color: #7dd3fc; font-weight: 600; }
+    .ac-val  { color: #86efac; }
+    .ac-warn { color: #fde68a; }
+    .ac-dim  { color: #475569; }
+  </style>
+</head>
+<body>
+
+<!--
+════════════════════════════════════════════════════════════════════════
+  AGENT QUICK REFERENCE  — parse this comment for fast orientation
+  Full spec: docs/architecture/mero-marketing-command-center-online-architecture.md (v2)
+  Maintained by: TECHNICAL_WRITER agent — update on architecture changes
+════════════════════════════════════════════════════════════════════════
+
+── STACK ───────────────────────────────────────────────────────────────
+  App:       Next.js 14 (TypeScript, App Router)
+  Deploy:    Vercel — project "command-center"
+  DB/Auth:   Supabase — project "merowingus-studio" (shared Studio auth)
+  Domain:    marketing.merowingus.com
+  Local:     C:\CODE\MERO MARKETING\command-center\
+  Env:       command-center\.env.local  (gitignored)
+
+── CURRENT PHASE ────────────────────────────────────────────────────────
+  Phase 0  DONE     — Static prototype (dashboard/)
+  Phase 1  ACTIVE   — Next.js + Supabase
+    ✅ Owner-auth (magic-link + Edge middleware)
+    ✅ Deployed marketing.merowingus.com
+    ⬜ Supabase tables + RLS (tenant_id on all tables)
+    ⬜ Seed from dashboard/data.js
+    ⬜ Dashboard reads Postgres
+  Phase 2  TODO     — Upload + snapshot.v1 JSON schema
+  Phase 3  TODO     — Connectors (GA4 first)
+  Phase 4+ TODO     — Actions / MCP layer
+
+── CRITICAL RULES (violating = breaking the architecture) ───────────────
+  RULE 1  Multi-tenant: every row has tenant_id + product_id; RLS at DB level
+  RULE 2  Design tokens: import from Studio — never redeclare locally
+  RULE 3  Read-first: actions/MCP is Phase 4+; do NOT implement early
+  RULE 4  Platform base: shared layer stays in Studio, not tool internals
+  RULE 5  Parallel siblings: MERO tools are separate repos; cross-product via MERO Product
+  RULE 6  Zero fabrication: content = what product actually does
+  RULE 7  One wheel at a time: check ROADMAP.md; capacity ~5-10h/week
+  RULE 8  Auth: always supabase.auth.getUser() — never getSession() for security checks
+
+── DATA MODEL ───────────────────────────────────────────────────────────
+  Tenant → Products[] → Campaigns[] → Channels[] → Assets[] + Experiments[] + Metrics[]
+  Every metric: tenantId · productId · source · channel · campaign · assetId(?) ·
+                metricName · value · unit · periodStart · periodEnd · collectedAt(UTC) ·
+                confidence(estimated|reported|verified) · dedupeKey
+
+── KEY FILES ────────────────────────────────────────────────────────────
+  Next.js app:     command-center/
+  Auth gate:       command-center/lib/supabase/middleware.ts
+  Dashboard:       command-center/app/page.tsx + app/DashboardClient.tsx
+  Static proto:    dashboard/index.html + data.js  (fixture, not production)
+  This file:       docs/architecture/mero-marketing-architecture-map.html
+  Full spec:       docs/architecture/mero-marketing-command-center-online-architecture.md
+  Roadmap:         ROADMAP.md
+  Coordination:    C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md
+  Dev agents:      _skills/  (ARCHITECT · DEVELOPER · TESTER · CODE_REVIEWER · TECHNICAL_WRITER)
+  Mkt agents:      .claude/skills/  (orchestrator · strategy-architect · channel agents)
+
+── LOCKED DECISIONS ─────────────────────────────────────────────────────
+  Subdomain:  marketing.merowingus.com  (not /tools/marketing path)
+  Auth model: magic-link, signInWithOtp({shouldCreateUser: false})
+  Gate:       OWNER_EMAIL env var in Vercel Edge Middleware
+  Supabase:   shared "merowingus-studio" project (Divergentum has its own)
+  snapshot.v1: shared JSON Schema — Codex produces, Claude Code consumes
+  Connectors: ga4 → divergentum_backend → tiktok → instagram → reddit → youtube
+════════════════════════════════════════════════════════════════════════
+-->
+
+<div class="page">
+
+  <!-- ══ HEADER ══════════════════════════════════════════════════════ -->
+  <header>
+    <div class="eyebrow">Merowingus Studio · MERO Marketing</div>
+    <h1 class="page-title">Architecture Map</h1>
+    <div class="badges">
+      <span class="badge badge-brand">v2 · 2026-06-29</span>
+      <span class="badge badge-green">● Phase 1 Active</span>
+      <span class="badge badge-gold">Command Center</span>
+      <span class="badge badge-neutral">marketing.merowingus.com</span>
+    </div>
+    <p class="page-note">
+      Visual + machine-readable reference. Agents: read the HTML comment at the top of this file for fast orientation.
+      Full spec: <code>docs/architecture/mero-marketing-command-center-online-architecture.md</code>.
+      This file is maintained by the <strong>TECHNICAL_WRITER</strong> agent — update when architecture changes.
+    </p>
+  </header>
+
+  <!-- ══ SECTION 1: STUDIO PLATFORM BASE ═════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Studio Platform Base — Shared Layer (not tool internals)</div>
+
+    <div class="platform-band">
+      <span class="platform-label">Shared by all MERO tools →</span>
+      <span class="platform-pill">🎨 Design Tokens</span>
+      <span class="platform-pill">🔐 Auth + Tenant + RLS</span>
+      <span class="platform-pill">⚙️ Agentic Engine</span>
+      <span class="platform-pill">📡 MCP Convention</span>
+    </div>
+
+    <!-- ── Data Pipeline ── -->
+    <div style="margin-top:20px;">
+      <div class="section-label" style="margin-top:0;">Data Pipeline</div>
+      <div class="pipeline-scroll">
+        <div class="pipeline">
+
+          <!-- Col 1: Sources -->
+          <div class="pipe-col">
+            <div class="pipe-head ph-src">① Data Sources</div>
+            <div class="pipe-items">
+              <div class="pi">
+                <span class="pi-icon">📁</span>
+                <div><div class="pi-name">Manual Upload</div><div class="pi-sub">JSON snapshot file</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">📊</span>
+                <div><div class="pi-name">GA4 Connector</div><div class="pi-sub">Traffic → Signup → Purchase</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🎵</span>
+                <div><div class="pi-name">TikTok</div><div class="pi-sub">Views, profile visits, clicks</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">📸</span>
+                <div><div class="pi-name">Instagram</div><div class="pi-sub">Reach, engagement</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">💬</span>
+                <div><div class="pi-name">Reddit</div><div class="pi-sub">Upvotes, comments, clicks</div></div>
+              </div>
+              <div class="pi future">
+                <span class="pi-icon">▶️</span>
+                <div><div class="pi-name">YouTube</div><div class="pi-sub">Phase 3+</div></div>
+              </div>
+              <div class="pi future">
+                <span class="pi-icon">🎮</span>
+                <div><div class="pi-name">Divergentum Events</div><div class="pi-sub">Backend stream · Phase 3+</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pipe-arrow"></div>
+
+          <!-- Col 2: Normalization -->
+          <div class="pipe-col">
+            <div class="pipe-head ph-norm">② Ingestion &amp; Normalize</div>
+            <div class="pipe-items">
+              <div class="pi">
+                <span class="pi-icon">✅</span>
+                <div><div class="pi-name">Schema Validation</div><div class="pi-sub">snapshot.v1 JSON Schema<br>Reject unknown fields</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🔄</span>
+                <div><div class="pi-name">Normalize</div><div class="pi-sub">All sources → same internal shape</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🏷️</span>
+                <div><div class="pi-name">Provenance Tag</div><div class="pi-sub">source · confidence · collectedAt</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🛡️</span>
+                <div><div class="pi-name">Idempotent Upsert</div><div class="pi-sub">dedupeKey prevents duplicates</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">⏱️</span>
+                <div><div class="pi-name">UTC Timestamps</div><div class="pi-sub">periodStart · periodEnd · collectedAt</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pipe-arrow"></div>
+
+          <!-- Col 3: Storage -->
+          <div class="pipe-col">
+            <div class="pipe-head ph-store">③ Storage</div>
+            <div class="pipe-items">
+              <div class="pi">
+                <span class="pi-icon">🗄️</span>
+                <div><div class="pi-name">Supabase Postgres</div><div class="pi-sub">Project: merowingus-studio</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🔒</span>
+                <div><div class="pi-name">Row-Level Security</div><div class="pi-sub">tenant_id on every table<br>RLS policy per tenant</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🔑</span>
+                <div><div class="pi-name">Supabase Auth</div><div class="pi-sub">Magic-link · owner-only now<br>open registration later</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🔐</span>
+                <div><div class="pi-name">Vault (Secrets)</div><div class="pi-sub">GA4/social tokens encrypted<br>server-side only</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">📋</span>
+                <div><div class="pi-name">Audit Log</div><div class="pi-sub">Upload history · rollback</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pipe-arrow"></div>
+
+          <!-- Col 4: Interface -->
+          <div class="pipe-col">
+            <div class="pipe-head ph-ui">④ Interface</div>
+            <div class="pipe-items">
+              <div class="pi">
+                <span class="pi-icon">🛡️</span>
+                <div><div class="pi-name">Edge Middleware</div><div class="pi-sub">Owner gate before any file<br>getUser() not getSession()</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">⚡</span>
+                <div><div class="pi-name">Next.js API Routes</div><div class="pi-sub">Server-side · Vercel Functions<br>Upload endpoint (Phase 2)</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🖥️</span>
+                <div><div class="pi-name">Command Center UI</div><div class="pi-sub">Product selector · read-first<br>Divergentum default</div></div>
+              </div>
+              <div class="pi">
+                <span class="pi-icon">🌐</span>
+                <div><div class="pi-name">marketing.merowingus.com</div><div class="pi-sub">Vercel · noindex · owner-only</div></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /pipeline -->
+
+        <!-- Actions Band -->
+        <div class="actions-band">
+          <span class="ab-label">⟳ Phase 4+ · Actions / MCP (future)</span>
+          <span class="ab-pill">📋 actions table</span>
+          <span class="ab-arrow">──›</span>
+          <span class="ab-pill">📡 MCP Server</span>
+          <span class="ab-arrow">──›</span>
+          <span class="ab-pill">🤖 Studio Agentic Engine</span>
+          <span style="font-size:11px; color:var(--n400); margin-left:4px;">gated · self-only first</span>
+        </div>
+      </div><!-- /pipeline-scroll -->
+    </div>
+  </section>
+
+  <!-- ══ SECTION 2: ORGANIZATIONAL STRUCTURE ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Organizational Structure — Parallel Siblings</div>
+    <div class="org-wrap">
+      <div class="org-center">
+        <div class="org-node org-orchestrator">
+          🎯 MERO Product (Planner) — Orchestrator
+        </div>
+        <div style="font-size:11px; color:var(--n400); text-align:center; margin-top:4px;">
+          reads each tool via MCP · cross-product work starts here
+        </div>
+        <div class="org-vline"></div>
+        <div class="org-row">
+          <div class="org-node org-active" style="min-width:155px; text-align:center;">
+            <div class="org-tag" style="color:var(--brand);">● This project</div>
+            <div class="org-name" style="color:var(--brand-deep);">MERO Marketing</div>
+            <div class="org-sub">command-center/</div>
+          </div>
+          <div class="org-node org-sibling" style="min-width:155px; text-align:center;">
+            <div class="org-tag">Sibling</div>
+            <div class="org-name">MERO SEO</div>
+            <div class="org-sub">C:\CODE\MERO SEO</div>
+          </div>
+          <div class="org-node org-sibling" style="min-width:155px; text-align:center;">
+            <div class="org-tag">Sibling</div>
+            <div class="org-name">MERO Job Hunt</div>
+            <div class="org-sub">C:\CODE\MERO JOB HUNT</div>
+          </div>
+          <div class="org-node org-future" style="min-width:155px; text-align:center;">
+            <div class="org-tag">Future</div>
+            <div class="org-name">Next product</div>
+            <div class="org-sub">copies snapshot.v1 pattern</div>
+          </div>
+        </div>
+      </div>
+      <div class="org-note">
+        <strong>Rule:</strong> each tool is a <strong>separate repo with independent deploy</strong>.
+        The shared layer (tokens · auth · engine · MCP) lives in <code>C:\CODE\MEROWINGUS Studio</code>.
+        Extract <code>packages/</code> only when the <strong>second tool arrives</strong> — rule of three.
+        MERO Marketing is the first consumer of the shared stack, not the platform hub.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 3: DATA MODEL ═════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Data Model — Tenant → Product Hierarchy</div>
+    <div class="data-model-wrap">
+      <div class="dm-row">
+
+        <div class="dm-box dm-gold">
+          <div class="dm-title">Tenant</div>
+          <div class="dm-id">id: "merowingus"</div>
+          <div class="dm-fields">plan: "internal"<br>name: "Merowingus Studio"</div>
+        </div>
+
+        <div class="dm-arrow"><div class="dm-arrow-line"></div><div class="dm-arrow-head">▶</div></div>
+
+        <div class="dm-box dm-brand">
+          <div class="dm-title">Product</div>
+          <div class="dm-id">id: "divergentum"</div>
+          <div class="dm-fields">tenantId<br>website</div>
+        </div>
+
+        <div class="dm-arrow"><div class="dm-arrow-line"></div><div class="dm-arrow-head">▶</div></div>
+
+        <div class="dm-box">
+          <div class="dm-title">Campaign</div>
+          <div class="dm-id">launch_june_2026</div>
+          <div class="dm-fields">tenantId · productId<br>status · focus<br>startDate</div>
+        </div>
+
+        <div class="dm-arrow"><div class="dm-arrow-line"></div><div class="dm-arrow-head">▶</div></div>
+
+        <div class="dm-box">
+          <div class="dm-title">Channel</div>
+          <div class="dm-id">per-product registry</div>
+          <div class="dm-fields">tenantId · productId<br>status · role<br>primaryMetric</div>
+        </div>
+
+        <div class="dm-arrow"><div class="dm-arrow-line"></div><div class="dm-arrow-head">▶</div></div>
+
+        <div class="dm-leaves">
+          <div class="dm-box dm-success">
+            <div class="dm-title">Asset</div>
+            <div class="dm-fields">type · url<br>publishedAt<br>utmContent</div>
+          </div>
+          <div class="dm-box dm-orange">
+            <div class="dm-title">Experiment</div>
+            <div class="dm-fields">hypothesis · metric<br>status · verdict</div>
+          </div>
+          <div class="dm-box dm-blue">
+            <div class="dm-title">Metric</div>
+            <div class="dm-fields">source · confidence<br>value · unit<br>dedupeKey</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Metric canonical shape -->
+      <div style="margin-top:16px; padding:12px 16px; background:var(--bg); border-radius:8px; font-size:12px;">
+        <strong style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--n400);">Every Metric Carries</strong>
+        <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:6px;">
+          <code>tenantId</code><code>productId</code><code>source</code><code>channel</code>
+          <code>campaign</code><code>assetId?</code><code>metricName</code><code>value</code>
+          <code>unit</code><code>periodStart</code><code>periodEnd</code><code>collectedAt(UTC)</code>
+          <code>confidence</code><code>dedupeKey</code>
+        </div>
+        <div style="margin-top:6px; font-size:11.5px; color:var(--n600);">
+          <strong>confidence:</strong> <code>estimated</code> | <code>reported</code> | <code>verified</code> &nbsp;·&nbsp;
+          <strong>dedupeKey:</strong> <code>tenantId:source:productId:channel:assetId:metricName:periodStart</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 4: APPLICATION LAYERS ══════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Application Layers</div>
+    <div class="cards">
+      <div class="card done">
+        <div class="card-phase">✓ Phase 0 — Done</div>
+        <div class="card-title">Local Prototype</div>
+        <div class="card-desc">Static <code>dashboard/</code> proving layout, data vocabulary, workflow. <code>data.js</code> = fixture / shape of future Postgres tables. Throwaway-friendly.</div>
+      </div>
+      <div class="card active">
+        <div class="card-phase">● Phase 1 — Active</div>
+        <div class="card-title">UI Layer (read-first)</div>
+        <div class="card-desc">Product selector (Divergentum default). Reads campaigns, channels, KPIs, experiments, next actions from Postgres. No hardcoded sections — data-driven. Design tokens imported from Studio.</div>
+      </div>
+      <div class="card active">
+        <div class="card-phase">● Phase 1 — Active</div>
+        <div class="card-title">Auth Layer</div>
+        <div class="card-desc">Supabase magic-link. Edge Middleware checks <code>OWNER_EMAIL</code> before any file is served. Server page re-verifies with <code>getUser()</code>. Defense in depth.</div>
+      </div>
+      <div class="card future">
+        <div class="card-phase">Phase 2</div>
+        <div class="card-title">Upload Layer</div>
+        <div class="card-desc">Accept JSON snapshots, validate against <code>snapshot.v1</code> schema (shared contract between Codex + Claude Code), store valid snapshots, show validation report, allow rollback.</div>
+      </div>
+      <div class="card future">
+        <div class="card-phase">Phase 3</div>
+        <div class="card-title">Connector Layer</div>
+        <div class="card-desc">Isolated server-side functions per source. Build order: GA4 → Divergentum backend → TikTok → Instagram → Reddit → YouTube. Credentials in Vault. Never block dashboard on failure.</div>
+      </div>
+      <div class="card future">
+        <div class="card-phase">Phase 4+</div>
+        <div class="card-title">Actions / MCP Layer</div>
+        <div class="card-desc"><code>actions</code> table records intent → status → result. MCP server exposes model to Studio engine. Claude can read state and (gated) perform actions. Self-only first, rate-limited before public.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 5: PHASE ROADMAP ═════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Phased Rollout</div>
+    <div class="roadmap">
+      <div class="rm-item">
+        <span class="rm-badge done">✓ Phase 0</span>
+        <div>
+          <div class="rm-title">Local Prototype</div>
+          <div class="rm-desc">Static dashboard proving layout + data vocabulary. <code>data.js</code> = shape of future Postgres tables.</div>
+        </div>
+      </div>
+      <div class="rm-item current">
+        <span class="rm-badge current">● Phase 1</span>
+        <div>
+          <div class="rm-title">Real Read-First Command Center (Next.js + Supabase)</div>
+          <div class="rm-desc">Owner auth only. Supabase tables with tenant_id + RLS. Dashboard reads Postgres. Product selector. No upload UI yet.</div>
+          <div class="rm-progress">✅ Owner-auth deployed · ⬜ Postgres tables + RLS · ⬜ Seed from data.js · ⬜ Dashboard reads DB</div>
+        </div>
+      </div>
+      <div class="rm-item">
+        <span class="rm-badge future">Phase 2</span>
+        <div>
+          <div class="rm-title">Upload + Snapshots</div>
+          <div class="rm-desc">JSON upload → server-side validation against shared <code>snapshot.v1</code> schema → store. History, rollback, audit log. Schema is the contract between Codex and Claude Code.</div>
+        </div>
+      </div>
+      <div class="rm-item">
+        <span class="rm-badge future">Phase 3</span>
+        <div>
+          <div class="rm-title">Connectors (one at a time)</div>
+          <div class="rm-desc">GA4 first → Divergentum backend → TikTok → Instagram → Reddit → YouTube. Manual upload stays as permanent fallback.</div>
+        </div>
+      </div>
+      <div class="rm-item">
+        <span class="rm-badge future">Phase 4+</span>
+        <div>
+          <div class="rm-title">Actions / MCP Layer</div>
+          <div class="rm-desc">Populate actions table with real automation. Expose MCP server to Studio engine. Enable gated write actions — self-only first. Gradual build.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 6: CRITICAL RULES ════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Critical Rules — Agents Must Not Violate</div>
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-num hard">1</div>
+        <div>
+          <div class="rule-title">Multi-tenant from Day 1</div>
+          <div class="rule-desc">Every DB table has <code>tenant_id</code> + <code>product_id</code>. Isolation via Supabase RLS — never app-code conditions.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num hard">2</div>
+        <div>
+          <div class="rule-title">Design Tokens — Import, Never Re-declare</div>
+          <div class="rule-desc">Tokens from <code>MEROWINGUS Studio/website/Design/tokens</code>. No hardcoded colors. Current local tokens in <code>dashboard/styles.css</code> = known tech debt; don't worsen it.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num hard">3</div>
+        <div>
+          <div class="rule-title">Read-First — Actions Are Phase 4+</div>
+          <div class="rule-desc">Command center shows state now. Actions/MCP is designed now, implemented only in Phase 4. Do not implement ahead of schedule.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num hard">4</div>
+        <div>
+          <div class="rule-title">Platform Base — Not Tool Internals</div>
+          <div class="rule-desc">Shared layer (tokens/auth/engine/MCP) lives in Studio. MERO Marketing is the first consumer, not the hub. Extract packages only when the second tool arrives.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">5</div>
+        <div>
+          <div class="rule-title">Parallel Siblings — No Cross-Repo Coupling</div>
+          <div class="rule-desc">MERO tools are separate repos, independent deploys. Cross-product work via MERO Product (Planner). Never import one tool's internals into another.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">6</div>
+        <div>
+          <div class="rule-title">Zero Fabrication</div>
+          <div class="rule-desc">Marketing content = what the product actually does. No invented results, fake metrics, or claims it can't back.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">7</div>
+        <div>
+          <div class="rule-title">One Wheel at a Time</div>
+          <div class="rule-desc">Capacity ~5–10h/week. Check <code>ROADMAP.md</code> before starting. Build and ship one agent or feature at a time.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">8</div>
+        <div>
+          <div class="rule-title">Auth: getUser() not getSession()</div>
+          <div class="rule-desc">Server-side auth must use <code>supabase.auth.getUser()</code> — validates token server-side. <code>getSession()</code> trusts client data — never use for security checks.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 7: REPOSITORY MAP ═════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">Repository Map</div>
+    <div class="file-map">
+<span class="fm-file">C:\CODE\MERO MARKETING\</span>
+<span class="fm-dir">├── command-center/</span>           <span class="fm-note"># ← Next.js app (active deploy)</span>
+<span class="fm-dir">│   ├── app/</span>
+<span class="fm-live">│   │   ├── page.tsx</span>              <span class="fm-note"># Dashboard server component (getUser() defense)</span>
+<span class="fm-live">│   │   ├── DashboardClient.tsx</span>   <span class="fm-note"># Full dashboard UI (ported from static)</span>
+<span class="fm-live">│   │   ├── login/page.tsx</span>        <span class="fm-note"># Magic-link OTP form</span>
+<span class="fm-live">│   │   └── auth/callback/route.ts</span><span class="fm-note"># PKCE code exchange</span>
+<span class="fm-dir">│   ├── lib/supabase/</span>
+<span class="fm-live">│   │   ├── client.ts</span>             <span class="fm-note"># Browser client</span>
+<span class="fm-live">│   │   ├── server.ts</span>             <span class="fm-note"># Server client + cookie adapter</span>
+<span class="fm-live">│   │   └── middleware.ts</span>         <span class="fm-note"># Owner gate (OWNER_EMAIL env)</span>
+<span class="fm-live">│   ├── middleware.ts</span>             <span class="fm-note"># Edge middleware entry + route matcher</span>
+<span class="fm-live">│   ├── lib/dashboard-data.ts</span>     <span class="fm-note"># Static data (future: move to Postgres)</span>
+<span class="fm-file">│   ├── .env.local</span>               <span class="fm-note"># GITIGNORED — Supabase URL/key + OWNER_EMAIL</span>
+<span class="fm-file">│   └── package.json</span>            <span class="fm-note"># Next 14.2.35 · @supabase/ssr ^0.5.2</span>
+
+<span class="fm-dir">├── dashboard/</span>                   <span class="fm-note"># Static prototype — local only (throwaway)</span>
+<span class="fm-file">│   ├── index.html</span>
+<span class="fm-file">│   ├── styles.css</span>              <span class="fm-note"># Local tokens ← tech debt (unify with Studio later)</span>
+<span class="fm-file">│   └── data.js</span>                <span class="fm-note"># Fixture = shape of future Postgres tables</span>
+
+<span class="fm-dir">├── docs/architecture/</span>
+<span class="fm-live">│   ├── ...v2.md</span>               <span class="fm-note"># Full architecture spec (source of truth)</span>
+<span class="fm-live">│   └── mero-marketing-architecture-map.html</span>  <span class="fm-note"># ← THIS FILE</span>
+
+<span class="fm-dir">├── _skills/</span>                    <span class="fm-note"># Dev-pipeline agents</span>
+<span class="fm-file">│   ├── ARCHITECT.md</span>  <span class="fm-file">DEVELOPER.md</span>  <span class="fm-file">TESTER.md</span>  <span class="fm-file">CODE_REVIEWER.md</span>  <span class="fm-file">TECHNICAL_WRITER.md</span>
+
+<span class="fm-dir">├── .claude/skills/</span>            <span class="fm-note"># Marketing channel agents (different from _skills/)</span>
+<span class="fm-file">│   ├── marketing-orchestrator/</span>  <span class="fm-file">strategy-architect/</span>
+<span class="fm-file">│   └── [reddit · instagram · tiktok · youtube · linkedin · product-hunt ...]</span>
+
+<span class="fm-dir">├── strategies/</span>                <span class="fm-note"># Real strategy docs (Divergentum fuel)</span>
+<span class="fm-dir">├── campaigns/divergentum/</span>     <span class="fm-note"># Active campaign assets</span>
+<span class="fm-dir">├── channels/</span>                  <span class="fm-note"># Per-channel output (marketing agents write here)</span>
+<span class="fm-file">├── CLAUDE.md</span>                  <span class="fm-note"># Project rules (rules 1–8)</span>
+<span class="fm-file">├── ROADMAP.md</span>                 <span class="fm-note"># Now / Next / Later</span>
+<span class="fm-file">└── coordination/SYNC.md</span>      <span class="fm-note"># → C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md</span>
+    </div>
+  </section>
+
+  <!-- ══ SECTION 8: AGENT CONTEXT (machine-readable) ═══════════════════ -->
+  <section class="section">
+    <div class="section-label">Agent Context Block (machine-readable)</div>
+    <div class="agent-ctx">
+<span class="ac-head">── STACK ────────────────────────────────────────────────────────────</span>
+<span class="ac-key">Framework :</span>   <span class="ac-val">Next.js 14 (TypeScript, App Router)</span>
+<span class="ac-key">Deploy    :</span>   <span class="ac-val">Vercel — project "command-center"</span>
+<span class="ac-key">Database  :</span>   <span class="ac-val">Supabase Postgres — project "merowingus-studio" (shared Studio auth)</span>
+<span class="ac-key">Auth      :</span>   <span class="ac-val">Supabase magic-link · signInWithOtp({shouldCreateUser: false})</span>
+<span class="ac-key">Domain    :</span>   <span class="ac-val">marketing.merowingus.com</span>
+<span class="ac-key">Local root:</span>   <span class="ac-val">C:\CODE\MERO MARKETING\command-center\</span>
+
+<span class="ac-head">── CURRENT PHASE ────────────────────────────────────────────────────</span>
+<span class="ac-val">Phase 1 IN PROGRESS</span>
+<span class="ac-key">Done :</span>   <span class="ac-val">owner-auth (magic-link + Edge middleware), deployed to production</span>
+<span class="ac-key">Next :</span>   <span class="ac-val">Supabase tables + RLS → seed from data.js → dashboard reads Postgres</span>
+<span class="ac-key">Branch:</span>  <span class="ac-val">feature/owner-auth (093b132) — merge after login confirmed</span>
+
+<span class="ac-head">── MUST / MUST NOT ──────────────────────────────────────────────────</span>
+<span class="ac-warn">MUST     tenant_id + product_id on every DB table; RLS at Supabase level</span>
+<span class="ac-warn">MUST     supabase.auth.getUser() for server checks — NEVER getSession()</span>
+<span class="ac-warn">MUST     design tokens imported from Studio — never redeclared locally</span>
+<span class="ac-warn">MUST NOT implement Actions/MCP layer before Phase 4</span>
+<span class="ac-warn">MUST NOT cross-import between MERO tool repos</span>
+<span class="ac-warn">MUST NOT extract shared packages before the second tool arrives</span>
+<span class="ac-warn">MUST NOT commit connector API tokens — Vault/env only</span>
+
+<span class="ac-head">── DATA MODEL ───────────────────────────────────────────────────────</span>
+<span class="ac-key">Hierarchy:</span>  <span class="ac-val">Tenant → Products[] → Campaigns[] → Channels[] → Assets[] + Experiments[] + Metrics[]</span>
+<span class="ac-key">dedupeKey:</span>  <span class="ac-val">tenantId:source:productId:channel:assetId:metricName:periodStart</span>
+<span class="ac-key">confidence:</span> <span class="ac-val">estimated | reported | verified  (separate from source)</span>
+
+<span class="ac-head">── COORDINATION ─────────────────────────────────────────────────────</span>
+<span class="ac-key">Journal  :</span>  <span class="ac-val">C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md</span>
+<span class="ac-dim">             Read before work (check Codex blockers) · Append after work</span>
+<span class="ac-key">Studio   :</span>  <span class="ac-val">C:\CODE\MEROWINGUS Studio\strategy\agentic-engine.md</span>
+<span class="ac-key">ROADMAP  :</span>  <span class="ac-val">ROADMAP.md  ← always check before starting a task</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

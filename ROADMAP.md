@@ -11,7 +11,8 @@ marketing DoD, so it never becomes an afterthought.
 
 ## 🎯 Current focus
 
-**Divergentum distribution:** Reddit foundation is live; TikTok channel launch design is in progress.
+**Divergentum distribution:** Reddit foundation is live; first TikTok launch batch is uploaded and in
+the 24–72h observation window.
 
 ## Agents (think + produce)
 
@@ -42,5 +43,5 @@ marketing DoD, so it never becomes an afterthought.
 
 ## Next step
 
-Finish the Divergentum TikTok launch design. Then brainstorm the **MERO Marketing Dashboard** data
-model and MVP boundary before implementing it in the Studio website.
+Review the first Divergentum TikTok batch after 24–72h, capture results, then brainstorm the **MERO
+Marketing Dashboard** data model and MVP boundary before implementing it in the Studio website.
