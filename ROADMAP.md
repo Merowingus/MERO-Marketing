@@ -45,3 +45,9 @@ the 24–72h observation window.
 
 Review the first Divergentum TikTok batch after 24–72h, capture results, then brainstorm the **MERO
 Marketing Dashboard** data model and MVP boundary before implementing it in the Studio website.
+
+## Content backlog
+
+- Build-in-public blog story: **Command Center + `snapshot.v1`**. Brief:
+  `channels/blog/command-center-snapshot-story-brief.md`. Write after the first real Phase 2 snapshot
+  import or Supabase seed, so the post has a real ending and no fabricated result claims.
