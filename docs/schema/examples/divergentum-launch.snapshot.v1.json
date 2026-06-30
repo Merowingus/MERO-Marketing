@@ -1,0 +1,365 @@
+{
+  "schemaVersion": "mero.marketing.snapshot.v1",
+  "generatedAt": "2026-06-29T16:00:00Z",
+  "tenantId": "merowingus",
+  "productId": "divergentum",
+  "campaignId": "divergentum_launch_june_2026",
+  "producer": {
+    "name": "Codex",
+    "tool": "codex",
+    "notes": "Example snapshot based on the current launch dashboard. Performance metrics remain pending until manually recorded or imported."
+  },
+  "summary": {
+    "title": "MERO Marketing Command Center",
+    "subtitle": "Launch view for Reddit, TikTok, experiments, and analytics readiness.",
+    "status": "launch_in_progress",
+    "statusLabel": "Launch in progress",
+    "lastUpdated": "2026-06-27",
+    "owner": "Mykola · Merowingus Studio",
+    "website": "https://www.divergentum.com/",
+    "profileUtm": "https://www.divergentum.com/?utm_source=tiktok&utm_medium=social&utm_campaign=profile",
+    "currentFocus": "Reddit foundation is live. First TikTok launch batch is uploaded and waiting for 24–72h signals. Next: capture metrics, then move dashboard data toward the shared Command Center flow."
+  },
+  "focus": [
+    {
+      "id": "reddit_foundation",
+      "label": "Reddit foundation",
+      "value": "Live",
+      "tone": "live"
+    },
+    {
+      "id": "tiktok_batch",
+      "label": "TikTok batch",
+      "value": "Running",
+      "tone": "running"
+    },
+    {
+      "id": "ga4",
+      "label": "GA4",
+      "value": "Basic setup",
+      "tone": "watch"
+    },
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "value": "MVP now",
+      "tone": "next"
+    },
+    {
+      "id": "ph_hn",
+      "label": "PH / HN",
+      "value": "Parked",
+      "tone": "parked"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "tiktok_videos_uploaded",
+      "label": "TikTok videos uploaded",
+      "value": 7,
+      "detail": "classes, races/portraits, gameplay",
+      "tone": "live"
+    },
+    {
+      "id": "running_experiments",
+      "label": "Running experiments",
+      "value": 4,
+      "detail": "Reddit, TikTok, blog, class gallery",
+      "tone": "running"
+    },
+    {
+      "id": "active_channels",
+      "label": "Active channels",
+      "value": 2,
+      "detail": "Reddit + TikTok",
+      "tone": "running"
+    },
+    {
+      "id": "website_link",
+      "label": "Website link",
+      "value": "Pending",
+      "detail": "waiting for TikTok Website field",
+      "tone": "watch"
+    },
+    {
+      "id": "ga4_state",
+      "label": "GA4 state",
+      "value": "Basic",
+      "detail": "needs key events + UTM review",
+      "tone": "watch"
+    }
+  ],
+  "channels": [
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "role": "Trust + high-intent community",
+      "status": "live",
+      "tone": "live",
+      "next": "Keep subreddit warm, answer comments, prepare one non-duplicate external DevLog post.",
+      "metric": "comments, profile visits, signups via UTM"
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "role": "Visual proof + fast reach",
+      "status": "running",
+      "tone": "running",
+      "next": "Wait 24–72h, capture views/retention/comments, then double down on the best format.",
+      "metric": "views, retention, comments, profile visits, website clicks"
+    },
+    {
+      "id": "blog",
+      "name": "Blog",
+      "role": "Owned trust + build-in-public",
+      "status": "running",
+      "tone": "running",
+      "next": "Publish or refresh the last 10 percent post when launch signals settle.",
+      "metric": "traffic, time-on-page, assisted signups"
+    },
+    {
+      "id": "discord",
+      "name": "Discord",
+      "role": "UGC + Hall of Fame",
+      "status": "next",
+      "tone": "next",
+      "next": "Create #hall-of-fame after first players/artifacts appear.",
+      "metric": "shared stories, art posts, returning players"
+    },
+    {
+      "id": "product_hunt_show_hn",
+      "name": "Product Hunt / Show HN",
+      "role": "One-day launch spike",
+      "status": "parked",
+      "tone": "parked",
+      "next": "Do not launch until Reddit + TikTok give cleaner positioning signals.",
+      "metric": "launch-day visits, signups, comments"
+    },
+    {
+      "id": "seo",
+      "name": "SEO",
+      "role": "Slow compounding discovery",
+      "status": "parked",
+      "tone": "parked",
+      "next": "Save for wave 2: solo D&D and Everweave alternative articles.",
+      "metric": "organic clicks, ranking, signups"
+    }
+  ],
+  "experiments": [
+    {
+      "id": "reddit_devlog",
+      "name": "Reddit DevLog",
+      "channelId": "reddit",
+      "status": "running",
+      "hypothesis": "High-intent players convert from an honest dev story.",
+      "metric": "signups via UTM",
+      "verdict": "pending",
+      "startedAt": "2026-06-22"
+    },
+    {
+      "id": "per_class_pov_clips",
+      "name": "Per-class POV clips",
+      "channelId": "tiktok",
+      "status": "running",
+      "hypothesis": "The visual wow drives organic reach.",
+      "metric": "views to signups via UTM",
+      "verdict": "pending",
+      "startedAt": "2026-06-22"
+    },
+    {
+      "id": "last_10_percent_blog_post",
+      "name": "Last 10% blog post",
+      "channelId": "blog",
+      "status": "running",
+      "hypothesis": "Build-in-public earns trust and SEO.",
+      "metric": "traffic, time-on-page",
+      "verdict": "pending",
+      "startedAt": "2026-06-22"
+    },
+    {
+      "id": "five_class_choice_gallery",
+      "name": "Five-class choice gallery",
+      "channelId": "reddit",
+      "status": "planned",
+      "hypothesis": "A low-pressure visual question earns first community comments and reveals class interest.",
+      "metric": "comments by class + stated reasons",
+      "verdict": "pending",
+      "startedAt": "2026-06-24"
+    },
+    {
+      "id": "tiktok_first_launch_batch",
+      "name": "TikTok first launch batch",
+      "channelId": "tiktok",
+      "status": "running",
+      "hypothesis": "Short visual proof can introduce Divergentum faster than text and reveal which hook earns attention.",
+      "metric": "views, watch time, comments, profile visits, clicks, signups",
+      "verdict": "pending",
+      "startedAt": "2026-06-27"
+    },
+    {
+      "id": "product_hunt_show_hn",
+      "name": "Product Hunt + Show HN",
+      "channelId": "product_hunt_show_hn",
+      "status": "parked",
+      "hypothesis": "One-day spike creates IT/angel visibility.",
+      "metric": "launch-day signups",
+      "verdict": "parked"
+    }
+  ],
+  "assets": [
+    {
+      "id": "tiktok_gameplay_interface",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "tiktok_first_launch_batch",
+      "title": "Gameplay / interface",
+      "status": "uploaded",
+      "tags": ["gameplay", "interface", "proof"],
+      "notes": "Main proof that Divergentum is playable, not just fantasy art."
+    },
+    {
+      "id": "tiktok_race_portraits",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "tiktok_first_launch_batch",
+      "title": "Race + portraits",
+      "status": "uploaded",
+      "tags": ["races", "portraits", "character_creation"],
+      "notes": "Tests visual character appeal and choice curiosity."
+    },
+    {
+      "id": "tiktok_fighter",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "per_class_pov_clips",
+      "title": "Fighter",
+      "status": "uploaded",
+      "tags": ["class", "fighter"],
+      "notes": "Baseline class fantasy."
+    },
+    {
+      "id": "tiktok_rogue",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "per_class_pov_clips",
+      "title": "Rogue",
+      "status": "uploaded",
+      "tags": ["class", "rogue"],
+      "notes": "Tests mischief / stealth fantasy."
+    },
+    {
+      "id": "tiktok_wizard",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "per_class_pov_clips",
+      "title": "Wizard",
+      "status": "uploaded",
+      "tags": ["class", "wizard"],
+      "notes": "Solo mage vs crowd of monsters."
+    },
+    {
+      "id": "tiktok_druid",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "per_class_pov_clips",
+      "title": "Druid",
+      "status": "uploaded",
+      "tags": ["class", "druid"],
+      "notes": "Tests nature / wild magic fantasy."
+    },
+    {
+      "id": "tiktok_paladin",
+      "type": "tiktok_video",
+      "channelId": "tiktok",
+      "experimentId": "per_class_pov_clips",
+      "title": "Paladin",
+      "status": "uploaded",
+      "tags": ["class", "paladin"],
+      "notes": "Tests heroic oath fantasy with humor."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "tiktok_videos_uploaded_2026_06_27",
+      "scope": "channel",
+      "channelId": "tiktok",
+      "metricKey": "videos_uploaded",
+      "valueStatus": "actual",
+      "value": 7,
+      "unit": "count",
+      "period": {
+        "from": "2026-06-27",
+        "to": "2026-06-27"
+      },
+      "source": {
+        "type": "manual",
+        "label": "Manual upload count after TikTok batch"
+      }
+    },
+    {
+      "id": "tiktok_24h_views_pending_2026_06_29",
+      "scope": "channel",
+      "channelId": "tiktok",
+      "metricKey": "views_total",
+      "valueStatus": "pending",
+      "unit": "count",
+      "period": {
+        "from": "2026-06-27",
+        "to": "2026-06-29"
+      },
+      "source": {
+        "type": "manual",
+        "label": "TikTok 24h/48h/72h manual snapshot pending"
+      },
+      "notes": "Do not fill until the TikTok metrics are recorded."
+    },
+    {
+      "id": "ga4_signup_key_event_pending_2026_06_29",
+      "scope": "product",
+      "metricKey": "sign_up_key_event_ready",
+      "valueStatus": "pending",
+      "unit": "boolean",
+      "period": {
+        "from": "2026-06-29",
+        "to": "2026-06-29"
+      },
+      "source": {
+        "type": "ga4",
+        "label": "GA4 setup checklist"
+      }
+    }
+  ],
+  "nextActions": [
+    {
+      "id": "record_tiktok_24h_snapshot",
+      "label": "24h TikTok snapshot",
+      "status": "next",
+      "detail": "Record views, likes, comments, profile visits, and any website clicks for all seven videos."
+    },
+    {
+      "id": "reply_to_comments",
+      "label": "Reply to comments",
+      "status": "running",
+      "detail": "Use comments to clarify that Divergentum is a playable solo D&D-inspired RPG."
+    },
+    {
+      "id": "unlock_website_link",
+      "label": "Unlock website link",
+      "status": "watch",
+      "detail": "When TikTok opens the Website field, add the profile UTM link."
+    },
+    {
+      "id": "pick_winning_tiktok_format",
+      "label": "Pick the winner",
+      "status": "next",
+      "detail": "After 72h, make three more videos in the strongest format."
+    },
+    {
+      "id": "keep_reddit_warm",
+      "label": "Keep Reddit warm",
+      "status": "running",
+      "detail": "Do not spam new posts. Answer, comment, and prepare one unique external DevLog."
+    }
+  ],
+  "notes": "This example intentionally uses pending values for unrecorded performance metrics. It is a valid update shape, not a performance report."
+}

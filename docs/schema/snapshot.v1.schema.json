@@ -1,0 +1,450 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marketing.merowingus.com/schema/snapshot.v1.schema.json",
+  "title": "MERO Marketing Snapshot v1",
+  "description": "Versioned upload contract for MERO Marketing campaign/channel/experiment state. Producer: Codex or manual marketing workflow. Consumer: Claude Code / Command Center import pipeline.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "tenantId",
+    "productId",
+    "campaignId",
+    "summary",
+    "focus",
+    "kpis",
+    "channels",
+    "experiments",
+    "assets",
+    "metrics",
+    "nextActions"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "mero.marketing.snapshot.v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tenantId": {
+      "$ref": "#/$defs/id"
+    },
+    "productId": {
+      "$ref": "#/$defs/id"
+    },
+    "campaignId": {
+      "$ref": "#/$defs/id"
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "tool"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tool": {
+          "enum": ["codex", "claude_code", "manual", "connector", "script"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "status", "lastUpdated", "currentFocus"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["launch_in_progress", "running", "paused", "complete", "parked"]
+        },
+        "statusLabel": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "$ref": "#/$defs/date"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri"
+        },
+        "profileUtm": {
+          "type": "string",
+          "format": "uri"
+        },
+        "currentFocus": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "focus": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/focusItem"
+      }
+    },
+    "kpis": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/kpi"
+      }
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/channel"
+      }
+    },
+    "experiments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/experiment"
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/metric"
+      }
+    },
+    "nextActions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nextAction"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tone": {
+      "enum": ["live", "running", "next", "watch", "parked"]
+    },
+    "focusItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "value", "tone"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tone": {
+          "$ref": "#/$defs/tone"
+        }
+      }
+    },
+    "kpi": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "value", "detail", "tone"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "detail": {
+          "type": "string"
+        },
+        "tone": {
+          "$ref": "#/$defs/tone"
+        }
+      }
+    },
+    "channel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "role", "status", "tone", "next", "metric"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["live", "running", "next", "watch", "parked", "done"]
+        },
+        "tone": {
+          "$ref": "#/$defs/tone"
+        },
+        "next": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metric": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "experiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "channelId", "status", "hypothesis", "metric", "verdict"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channelId": {
+          "$ref": "#/$defs/id"
+        },
+        "status": {
+          "enum": ["planned", "running", "done", "parked"]
+        },
+        "hypothesis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metric": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verdict": {
+          "enum": ["pending", "keep", "iterate", "stop", "parked", "win", "loss"]
+        },
+        "startedAt": {
+          "$ref": "#/$defs/date"
+        },
+        "endedAt": {
+          "$ref": "#/$defs/date"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "title", "status"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": ["video", "image", "post", "blog_post", "reddit_post", "tiktok_video", "page", "other"]
+        },
+        "channelId": {
+          "$ref": "#/$defs/id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["planned", "draft", "uploaded", "published", "archived"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "publishedAt": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/date"
+        },
+        "to": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label"],
+      "properties": {
+        "type": {
+          "enum": ["manual", "ga4", "tiktok", "reddit", "instagram", "youtube", "divergentum_backend", "system"]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capturedAt": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "scope", "metricKey", "valueStatus", "period", "source"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "scope": {
+          "enum": ["campaign", "channel", "asset", "experiment", "product"]
+        },
+        "channelId": {
+          "$ref": "#/$defs/id"
+        },
+        "assetId": {
+          "$ref": "#/$defs/id"
+        },
+        "experimentId": {
+          "$ref": "#/$defs/id"
+        },
+        "metricKey": {
+          "$ref": "#/$defs/id"
+        },
+        "valueStatus": {
+          "enum": ["actual", "pending", "not_available"]
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/$defs/period"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "valueStatus": {
+                "const": "actual"
+              }
+            }
+          },
+          "then": {
+            "required": ["value"]
+          }
+        }
+      ]
+    },
+    "nextAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "status", "detail"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["next", "running", "watch", "done", "blocked", "parked"]
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string"
+        },
+        "dueDate": {
+          "$ref": "#/$defs/date"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

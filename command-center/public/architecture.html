@@ -249,7 +249,7 @@
     ⬜ Supabase tables + RLS (tenant_id on all tables)
     ⬜ Seed from dashboard/data.js
     ⬜ Dashboard reads Postgres
-  Phase 2  TODO     — Upload + snapshot.v1 JSON schema
+  Phase 2  TODO     — Upload; snapshot.v1 schema drafted
   Phase 3  TODO     — Connectors (GA4 first)
   Phase 4+ TODO     — Actions / MCP layer
 
@@ -287,6 +287,8 @@
   Gate:       OWNER_EMAIL env var in Vercel Edge Middleware
   Supabase:   shared "merowingus-studio" project (Divergentum has its own)
   snapshot.v1: shared JSON Schema — Codex produces, Claude Code consumes
+               docs/schema/snapshot.v1.schema.json
+               docs/schema/examples/divergentum-launch.snapshot.v1.json
   Connectors: ga4 → divergentum_backend → tiktok → instagram → reddit → youtube
 ════════════════════════════════════════════════════════════════════════
 -->
@@ -600,7 +602,7 @@
       <div class="card future">
         <div class="card-phase">Phase 2</div>
         <div class="card-title">Upload Layer</div>
-        <div class="card-desc">Accept JSON snapshots, validate against <code>snapshot.v1</code> schema (shared contract between Codex + Claude Code), store valid snapshots, show validation report, allow rollback.</div>
+        <div class="card-desc">Accept JSON snapshots, validate against <code>docs/schema/snapshot.v1.schema.json</code> (shared contract between Codex + Claude Code), store valid snapshots, show validation report, allow rollback.</div>
       </div>
       <div class="card future">
         <div class="card-phase">Phase 3</div>
@@ -638,7 +640,7 @@
         <span class="rm-badge future">Phase 2</span>
         <div>
           <div class="rm-title">Upload + Snapshots</div>
-          <div class="rm-desc">JSON upload → server-side validation against shared <code>snapshot.v1</code> schema → store. History, rollback, audit log. Schema is the contract between Codex and Claude Code.</div>
+          <div class="rm-desc">JSON upload → server-side validation against shared <code>docs/schema/snapshot.v1.schema.json</code> → store. History, rollback, audit log. Schema is the contract between Codex and Claude Code.</div>
         </div>
       </div>
       <div class="rm-item">

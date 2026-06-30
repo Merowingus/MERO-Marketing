@@ -233,7 +233,10 @@ connectors all produce the same shape — so manual work today is automation-com
   "generatedAt": "2026-06-29T16:00:00Z",
   "tenantId": "merowingus",
   "productId": "divergentum",
-  "campaign": "divergentum_launch_june_2026",
+  "campaignId": "divergentum_launch_june_2026",
+  "summary": {},
+  "focus": [],
+  "kpis": [],
   "channels": [],
   "experiments": [],
   "assets": [],
@@ -249,6 +252,10 @@ parked channels.
 
 The schema lives as a **versioned JSON Schema file** shared by both repos; producer (Codex) and
 consumer (Claude Code) validate against the *same* file. It is the contract between the two agents.
+
+- Contract: `docs/schema/snapshot.v1.schema.json`
+- Human guide: `docs/schema/README.md`
+- Example: `docs/schema/examples/divergentum-launch.snapshot.v1.json`
 
 Later formats (v2): CSV metric import · Markdown campaign update · ZIP package (assets + JSON manifest).
 
