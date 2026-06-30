@@ -29,9 +29,9 @@
 
 ## Критичные паттерны MERO Marketing (не нарушать)
 Контекст — `CLAUDE.md`, `docs/architecture/…v2`, журнал координации. Кратко:
-- **Deploy root:** деплоится только `dashboard/` (→ `marketing.merowingus.com`). Внутренние/планинговые
-  файлы (`strategies/`, `campaigns/`, `channels/`, `docs/`, `_skills/`, `_handoff/`) держим ВНЕ
-  deploy-корня. `dashboard/.vercelignore` исключает локальный `server.js`.
+- **Deploy root:** деплоится `command-center/` (Next.js app → `marketing.merowingus.com`, Vercel проект
+  "command-center"). `dashboard/` — статический прототип, локальный, в Vercel не деплоится. Внутренние
+  файлы (`strategies/`, `campaigns/`, `docs/`, `_skills/`, `_handoff/`) держим вне деплой-корня.
 - **Дизайн-система = platform base (CLAUDE.md rule 7):** токены **импортируются из студии**
   (`MEROWINGUS Studio/website/Design/tokens`), не переопределяются локально. Никаких хардкод-цветов —
   только CSS-vars (`--brand`, `--accent`). (Сейчас `dashboard/styles.css` держит токены локально —
@@ -49,9 +49,13 @@
 ## Обязательный flow
 
 ### Шаг 0 — Context Loading
-Найти релевантное быстро (не читать всё): `docs/architecture/…v2` (раздел под область фичи) ·
-`ROADMAP.md` (фаза/каданс) · текущий код в `dashboard/` (что переиспользовать) ·
-журнал координации (нет ли блокера от Codex / кто что трогает).
+Найти релевантное быстро (не читать всё):
+- `docs/architecture/mero-marketing-architecture-map.html` — **быстрый старт**: HTML-карта со стеком,
+  правилами, фазами и MUST/MUST NOT в одном файле. Читать первой.
+- `docs/architecture/mero-marketing-command-center-online-architecture.md` (v2) — полная spec по разделу, касающемуся фичи.
+- `ROADMAP.md` — фаза/каданс.
+- текущий код в `command-center/` — что переиспользовать.
+- журнал координации `coordination/SYNC.md` → нет ли блокера от Codex / кто что трогает.
 
 ### Шаг 1 — Intake
 Какую проблему решаем, для кого (мы-догфуд / будущий клиент), ожидаемый результат.

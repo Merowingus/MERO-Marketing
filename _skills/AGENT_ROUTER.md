@@ -27,10 +27,13 @@
 
 ---
 
-## Перед началом — координация (правило проекта)
-Перед дев-работой агент читает журнал `coordination/SYNC.md` → canonical
-`C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (Current state + последние записи),
-чтобы не конфликтовать с Codex (маркетинг-контент/модель). После работы — TECHNICAL_WRITER пишет запись.
+## Перед началом — ориентация + координация (правило проекта)
+1. **HTML-карта архитектуры** — `docs/architecture/mero-marketing-architecture-map.html`.
+   Читать первой: стек, фазы, MUST/MUST NOT, файловая карта — всё в одном месте.
+   Полная spec: `docs/architecture/mero-marketing-command-center-online-architecture.md` (v2).
+2. **Журнал координации** — `coordination/SYNC.md` → canonical
+   `C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (Current state + последние записи),
+   чтобы не конфликтовать с Codex. После работы — TECHNICAL_WRITER пишет запись.
 
 ---
 
@@ -78,8 +81,9 @@
 ---
 
 ## Engineering pipeline (строгий порядок)
-**Деплой:** дашборд → `marketing.merowingus.com` (Vercel, корень деплоя — `dashboard/`; сейчас
-`vercel deploy --prod` вручную). Будущая Фаза 1 — Next+Supabase (см. архитектуру v2). `main` = основная ветка.
+**Деплой:** `command-center/` → `marketing.merowingus.com` (Vercel, проект "command-center").
+Next.js 14 + Supabase (Phase 1 active). `main` = основная ветка.
+Статический прототип `dashboard/` — локальный, в Vercel больше не деплоится.
 
 ```
 feature/<slug> → PR → [проверка пользователем] → main

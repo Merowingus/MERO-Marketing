@@ -28,6 +28,8 @@ git push
 Обновить после фичи (только реально затронутое):
 - `ROADMAP.md` — отметить задачу/фазу, обновить очередь.
 - `docs/architecture/mero-marketing-command-center-online-architecture.md` — если менялась архитектура/фаза.
+- `docs/architecture/mero-marketing-architecture-map.html` — **обновлять вместе с v2.md** (Phase badge,
+  MUST/MUST NOT, Agent Context Block, File Map — всё что изменилось). Это зеркало v2 для быстрого чтения агентами.
 - `experiments.md` — если фича связана с экспериментом/гипотезой.
 - `agents/README.md` или `_skills/AGENTS_CATALOG.md` — если менялся состав/процесс агентов.
 - `README.md` / `CLAUDE.md` — если изменились правила работы проекта.
