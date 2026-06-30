@@ -5,6 +5,12 @@
 
 # Generated output (scripts/posts are drafts; keep the repo about the agents, not every run)
 output/
+Output/
+**/_shorts_factory/rendered/
+**/_shorts_factory/logs/
+
+# Local portable tools
+.tools/
 
 # OS / editor
 .DS_Store

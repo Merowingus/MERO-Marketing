@@ -1,0 +1,192 @@
+{
+  "version": "mero.youtube.shorts-factory.v1",
+  "campaignId": "divergentum_launch_june_2026",
+  "inputDir": "C:\\CODE\\MERO MARKETING\\Output\\Tik-tok_youtube_instagram",
+  "musicRoot": "C:\\CODE\\Divergentum\\public\\audio\\music",
+  "outputDirName": "_shorts_factory",
+  "watermark": "channels/youtube/assets/merowingus-studio-watermark-shorts-1080x1920-20.png",
+  "defaultSourceAudioVolume": 0.12,
+  "defaultMusicVolume": 0.16,
+  "musicAttribution": "Music by Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 https://creativecommons.org/licenses/by/4.0/",
+  "defaultHashtags": [
+    "#Divergentum",
+    "#SoloRPG",
+    "#DnDInspired",
+    "#FantasyRPG",
+    "#IndieGame",
+    "#GameDev"
+  ],
+  "items": [
+    {
+      "order": 1,
+      "slug": "interface-overview",
+      "sourceVideo": "first tiktok.mp4",
+      "trimDurationSec": 58,
+      "title": "I’m building a solo D&D-inspired RPG",
+      "description": "A quick look at the core screens of Divergentum: character, inventory, choices, and the adventure flow. Divergentum is a solo 5e-inspired fantasy RPG where you create a hero, choose your own actions, and the Dungeon Master responds.",
+      "pinnedComment": "This is the first quick interface look. If you try Divergentum, tell me what kind of character you created.",
+      "onScreenText": [
+        "I wanted a D&D-style game I could play alone.",
+        "So I started building Divergentum.",
+        "Create a character.",
+        "Manage inventory.",
+        "Choose your own actions.",
+        "The Dungeon Master responds."
+      ],
+      "music": {
+        "file": "dungeon\\ossuary-6-air.mp3",
+        "theme": "dungeon",
+        "volume": 0.14
+      },
+      "utmContent": "interface_overview",
+      "hashtags": ["#RPG", "#DungeonMaster"]
+    },
+    {
+      "order": 2,
+      "slug": "fantasy-races",
+      "sourceVideo": "Divergentum - 8 Fantasy races.mp4",
+      "title": "Choose your origin in Divergentum",
+      "description": "Eight fantasy races, one solo adventure. This short shows the character portrait and race-choice vibe for Divergentum, a solo 5e-inspired fantasy RPG.",
+      "pinnedComment": "Which race would you start with?",
+      "onScreenText": [
+        "Choose your origin.",
+        "Eight fantasy races.",
+        "One solo adventure.",
+        "Who would you become first?"
+      ],
+      "music": {
+        "file": "city\\mystery-bazaar.mp3",
+        "theme": "city",
+        "volume": 0.15
+      },
+      "utmContent": "fantasy_races",
+      "hashtags": ["#CharacterCreation", "#FantasyGame"]
+    },
+    {
+      "order": 3,
+      "slug": "wizard",
+      "sourceVideo": "wizard.mp4",
+      "title": "A wizard alone against the horde",
+      "description": "When the monsters arrive, the spellbook opens. A short class-fantasy clip from Divergentum, a solo 5e-inspired RPG.",
+      "pinnedComment": "Would you play Wizard first or save magic for later?",
+      "onScreenText": [
+        "The horde arrives.",
+        "The spellbook opens.",
+        "One wizard.",
+        "Too many monsters."
+      ],
+      "music": {
+        "file": "battle\\black-vortex.mp3",
+        "theme": "battle",
+        "volume": 0.16
+      },
+      "utmContent": "wizard",
+      "hashtags": ["#Wizard", "#Magic"]
+    },
+    {
+      "order": 4,
+      "slug": "fighter",
+      "sourceVideo": "fighter.mp4",
+      "title": "Choose your first hero: Fighter",
+      "description": "Steel, grit, and simple decisions that become complicated fast. Fighter class fantasy from Divergentum.",
+      "pinnedComment": "Fighter is the honest answer. Would you start here?",
+      "onScreenText": [
+        "No prophecy needed.",
+        "Just steel.",
+        "Just grit.",
+        "Choose Fighter."
+      ],
+      "music": {
+        "file": "battle\\heroic-age.mp3",
+        "theme": "battle",
+        "volume": 0.16
+      },
+      "utmContent": "fighter",
+      "hashtags": ["#Fighter", "#RPGClass"]
+    },
+    {
+      "order": 5,
+      "slug": "rogue",
+      "sourceVideo": "rogue.mp4",
+      "title": "Bad decisions in dark rooms",
+      "description": "Rogue class fantasy for players who like danger, shortcuts, locked doors, and suspiciously quiet corridors.",
+      "pinnedComment": "Would you sneak past the danger or make it worse?",
+      "onScreenText": [
+        "A locked door.",
+        "A bad idea.",
+        "A quiet step.",
+        "Choose Rogue."
+      ],
+      "music": {
+        "file": "dungeon\\ossuary-5-rest.mp3",
+        "theme": "dungeon",
+        "volume": 0.15
+      },
+      "utmContent": "rogue",
+      "hashtags": ["#Rogue", "#Stealth"]
+    },
+    {
+      "order": 6,
+      "slug": "druid",
+      "sourceVideo": "druid.mp4",
+      "title": "The forest always has another answer",
+      "description": "Druid class fantasy from Divergentum: nature, old magic, and a solo adventure that can turn strange very quickly.",
+      "pinnedComment": "Would you trust the forest?",
+      "onScreenText": [
+        "The forest is listening.",
+        "Old magic answers.",
+        "Not always gently.",
+        "Choose Druid."
+      ],
+      "music": {
+        "file": "forest\\despair-and-triumph.mp3",
+        "theme": "forest",
+        "volume": 0.15
+      },
+      "utmContent": "druid",
+      "hashtags": ["#Druid", "#NatureMagic"]
+    },
+    {
+      "order": 7,
+      "slug": "paladin",
+      "sourceVideo": "palladin.mp4",
+      "title": "A sword, an oath, and absolutely no chill",
+      "description": "Paladin class fantasy from Divergentum: heroic, stubborn, and probably walking directly toward the problem.",
+      "pinnedComment": "Is Paladin your first pick?",
+      "onScreenText": [
+        "A sword.",
+        "An oath.",
+        "No chill.",
+        "Choose Paladin."
+      ],
+      "music": {
+        "file": "battle\\clash-defiant.mp3",
+        "theme": "battle",
+        "volume": 0.16
+      },
+      "utmContent": "paladin",
+      "hashtags": ["#Paladin", "#HeroicFantasy"]
+    },
+    {
+      "order": 8,
+      "slug": "release-1-0",
+      "sourceVideo": "Relize 1.0.mp4",
+      "title": "Divergentum 1.0 is live",
+      "description": "Divergentum 1.0 is live: a solo 5e-inspired fantasy RPG with character choices, inventory, skills, and a responsive Dungeon Master.",
+      "pinnedComment": "Divergentum 1.0 is live. If you try it, tell me what happened in your first scene.",
+      "onScreenText": [
+        "Divergentum 1.0 is live.",
+        "Create a hero.",
+        "Choose your actions.",
+        "Start your solo adventure."
+      ],
+      "music": {
+        "file": "theme.mp3",
+        "theme": "theme",
+        "volume": 0.16
+      },
+      "utmContent": "release_1_0",
+      "hashtags": ["#GameLaunch", "#IndieRPG"]
+    }
+  ]
+}
