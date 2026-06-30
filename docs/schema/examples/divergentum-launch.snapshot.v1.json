@@ -285,6 +285,8 @@
       "channelId": "tiktok",
       "metricKey": "videos_uploaded",
       "valueStatus": "actual",
+      "confidence": "reported",
+      "dedupeKey": "merowingus:manual:divergentum:channel:tiktok:null:videos_uploaded:2026-06-27",
       "value": 7,
       "unit": "count",
       "period": {
@@ -302,6 +304,8 @@
       "channelId": "tiktok",
       "metricKey": "views_total",
       "valueStatus": "pending",
+      "confidence": "estimated",
+      "dedupeKey": "merowingus:manual:divergentum:channel:tiktok:null:views_total:2026-06-27",
       "unit": "count",
       "period": {
         "from": "2026-06-27",
@@ -318,6 +322,8 @@
       "scope": "product",
       "metricKey": "sign_up_key_event_ready",
       "valueStatus": "pending",
+      "confidence": "estimated",
+      "dedupeKey": "merowingus:ga4:divergentum:product:null:null:sign_up_key_event_ready:2026-06-29",
       "unit": "boolean",
       "period": {
         "from": "2026-06-29",

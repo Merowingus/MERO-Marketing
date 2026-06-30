@@ -152,7 +152,7 @@
       "format": "date-time"
     },
     "tone": {
-      "enum": ["live", "running", "next", "watch", "parked"]
+      "enum": ["live", "running", "next", "watch", "parked", "done"]
     },
     "focusItem": {
       "type": "object",
@@ -322,6 +322,11 @@
         },
         "notes": {
           "type": "string"
+        },
+        "utmContent": {
+          "type": "string",
+          "description": "utm_content slug for this asset — matches GA4 traffic back to the specific asset when connectors arrive.",
+          "minLength": 1
         }
       }
     },
@@ -362,7 +367,7 @@
     "metric": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "scope", "metricKey", "valueStatus", "period", "source"],
+      "required": ["id", "scope", "metricKey", "valueStatus", "confidence", "dedupeKey", "period", "source"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id"
@@ -397,6 +402,15 @@
         "source": {
           "$ref": "#/$defs/source"
         },
+        "confidence": {
+          "enum": ["estimated", "reported", "verified"],
+          "description": "Data quality. estimated = rough guess or extrapolated; reported = stated by the platform; verified = cross-checked across two or more sources."
+        },
+        "dedupeKey": {
+          "type": "string",
+          "description": "Idempotent upsert key for the import pipeline: {tenantId}:{source.type}:{productId}:{scope}:{channelId|null}:{assetId|null}:{metricKey}:{period.from}",
+          "minLength": 1
+        },
         "notes": {
           "type": "string"
         }
@@ -404,15 +418,30 @@
       "allOf": [
         {
           "if": {
-            "properties": {
-              "valueStatus": {
-                "const": "actual"
-              }
-            }
+            "properties": { "valueStatus": { "const": "actual" } }
           },
-          "then": {
-            "required": ["value"]
-          }
+          "then": { "required": ["value"] }
+        },
+        {
+          "if": {
+            "properties": { "scope": { "const": "channel" } },
+            "required": ["scope"]
+          },
+          "then": { "required": ["channelId"] }
+        },
+        {
+          "if": {
+            "properties": { "scope": { "const": "asset" } },
+            "required": ["scope"]
+          },
+          "then": { "required": ["assetId"] }
+        },
+        {
+          "if": {
+            "properties": { "scope": { "const": "experiment" } },
+            "required": ["scope"]
+          },
+          "then": { "required": ["experimentId"] }
         }
       ]
     },
@@ -441,8 +470,9 @@
         "dueDate": {
           "$ref": "#/$defs/date"
         },
-        "source": {
-          "type": "string"
+        "origin": {
+          "type": "string",
+          "description": "Where this action came from, e.g. 'roadmap', 'experiment/tiktok_first_launch_batch', 'connector/ga4'."
         }
       }
     }
