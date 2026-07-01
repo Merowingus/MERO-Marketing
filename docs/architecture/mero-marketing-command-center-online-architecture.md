@@ -67,7 +67,7 @@ Both consume the same shared design tokens, so they look like one product.
 The end state is a **monorepo** (`apps/marketing`, `apps/command-center`, `packages/design-system`,
 `packages/schema`) deployed by Vercel. **Not built today.** For now:
 
-- The local prototype keeps living in `C:\CODE\MERO MARKETING\dashboard\` (static, throwaway-friendly).
+- The local prototype keeps living in `E:\CODE\MERO MARKETING\dashboard\` (static, throwaway-friendly).
 - Its `dashboard/data.js` is treated as the **fixture / shape of the future Postgres tables**, not
   production code.
 - Integration between product work and the Studio site happens via **automation (shared token

@@ -10,9 +10,9 @@
 
 ## Global Constraints
 
-- Dashboard location: `C:\CODE\MERO MARKETING\dashboard\`.
+- Dashboard location: `E:\CODE\MERO MARKETING\dashboard\`.
 - Use Merowingus Studio design tokens and MERO Marketing theme (`--brand-h: 320`).
-- Include the Merowingus Studio logo copied from `C:\CODE\MEROWINGUS Studio\website\assets\logo.png`.
+- Include the Merowingus Studio logo copied from `E:\CODE\MEROWINGUS Studio\website\assets\logo.png`.
 - Work offline as local files.
 - Keep data editable in `dashboard/data.js`.
 - Do not add auth, database, GA4 API integration, public hosting, or paid ads reporting in v1.
@@ -23,7 +23,7 @@
 ### Task 1: Create dashboard data source
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\dashboard\data.js`
+- Create: `E:\CODE\MERO MARKETING\dashboard\data.js`
 
 **Interfaces:**
 - Produces: `window.dashboardData: object` with campaign, kpis, channels, tiktokVideos, experiments, actions, ga4, and links.
@@ -42,7 +42,7 @@ Expected: no syntax errors.
 ### Task 2: Create dashboard HTML shell
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\dashboard\index.html`
+- Create: `E:\CODE\MERO MARKETING\dashboard\index.html`
 
 **Interfaces:**
 - Consumes: `window.dashboardData` from `dashboard/data.js`.
@@ -65,7 +65,7 @@ Expected: all three references found.
 ### Task 3: Create dashboard styles
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\dashboard\styles.css`
+- Create: `E:\CODE\MERO MARKETING\dashboard\styles.css`
 
 **Interfaces:**
 - Consumes: class names from `dashboard/index.html`.
@@ -88,15 +88,15 @@ Expected: all token names found.
 ### Task 4: Copy logo asset and verify dashboard
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\dashboard\assets\logo.png`
+- Create: `E:\CODE\MERO MARKETING\dashboard\assets\logo.png`
 
 **Interfaces:**
-- Consumes: `C:\CODE\MEROWINGUS Studio\website\assets\logo.png`.
+- Consumes: `E:\CODE\MEROWINGUS Studio\website\assets\logo.png`.
 - Produces: portable local dashboard logo asset.
 
 - [ ] **Step 1: Copy logo**
 
-Copy `C:\CODE\MEROWINGUS Studio\website\assets\logo.png` to `C:\CODE\MERO MARKETING\dashboard\assets\logo.png`.
+Copy `E:\CODE\MEROWINGUS Studio\website\assets\logo.png` to `E:\CODE\MERO MARKETING\dashboard\assets\logo.png`.
 
 - [ ] **Step 2: Verify files**
 

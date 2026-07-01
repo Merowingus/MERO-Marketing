@@ -84,7 +84,7 @@ cd command-center && npx vercel deploy --prod
 
 ## Слой 2 — Журнал координации (ОБЯЗАТЕЛЬНО)
 Это общая внешняя память между Codex (маркетинг-контент/модель) и Claude Code (разработка).
-- **Canonical:** `C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (указатель — `coordination/SYNC.md`).
+- **Canonical:** `E:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (указатель — `coordination/SYNC.md`).
 - После дев-работы — **append лог-запись** (дата · агент · Did · Decisions · Changes · Commit/PR ·
   Blockers · Next step) и обновить блок **Current state**.
 - Заголовки/commit-хеши намеренно устаревают — обновлять в своей записи.

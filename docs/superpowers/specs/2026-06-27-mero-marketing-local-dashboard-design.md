@@ -12,7 +12,7 @@ into the Merowingus Studio website later.
 
 Create the dashboard in:
 
-`C:\CODE\MERO MARKETING\dashboard\`
+`E:\CODE\MERO MARKETING\dashboard\`
 
 Files:
 
@@ -25,7 +25,7 @@ Files:
 
 Use the Merowingus Studio visual system from:
 
-`C:\CODE\MEROWINGUS Studio\website\Design\`
+`E:\CODE\MEROWINGUS Studio\website\Design\`
 
 Relevant source decisions:
 
@@ -41,9 +41,9 @@ Relevant source decisions:
   - closer to the Planner app shell than the public landing pages;
   - dark board, panel cards, compact status badges, practical tables.
 - Brand asset:
-  - use `C:\CODE\MEROWINGUS Studio\website\assets\logo.png`.
+  - use `E:\CODE\MEROWINGUS Studio\website\assets\logo.png`.
 
-The local MVP should not depend on loading files from `C:\CODE\MEROWINGUS Studio` at runtime. Copy
+The local MVP should not depend on loading files from `E:\CODE\MEROWINGUS Studio` at runtime. Copy
 only the required logo into the dashboard and reproduce the small set of token variables needed for
 the standalone HTML.
 

@@ -7,7 +7,7 @@ description: Write short-form video scripts (Reels / Shorts / TikTok) for any pr
 
 The first **MERO Marketing** agent. Turn a product into ready-to-shoot short-form scripts
 (Reels / Shorts / TikTok). Product-agnostic: parametrized by {product · ICP · wow-hook}.
-Engine model: `C:\CODE\MEROWINGUS Studio\strategy\agentic-engine.md`.
+Engine model: `E:\CODE\MEROWINGUS Studio\strategy\agentic-engine.md`.
 
 ## The golden rule
 

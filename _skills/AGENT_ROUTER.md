@@ -32,7 +32,7 @@
    Читать первой: стек, фазы, MUST/MUST NOT, файловая карта — всё в одном месте.
    Полная spec: `docs/architecture/mero-marketing-command-center-online-architecture.md` (v2).
 2. **Журнал координации** — `coordination/SYNC.md` → canonical
-   `C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (Current state + последние записи),
+   `E:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md` (Current state + последние записи),
    чтобы не конфликтовать с Codex. После работы — TECHNICAL_WRITER пишет запись.
 
 ---

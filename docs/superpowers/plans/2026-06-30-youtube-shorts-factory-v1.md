@@ -21,8 +21,8 @@
 ### Task 1: Local ffmpeg
 
 **Files:**
-- Generated local tool: `C:\CODE\MERO MARKETING\.tools\ffmpeg\...\ffmpeg.exe`
-- Modify: `C:\CODE\MERO MARKETING\.gitignore`
+- Generated local tool: `E:\CODE\MERO MARKETING\.tools\ffmpeg\...\ffmpeg.exe`
+- Modify: `E:\CODE\MERO MARKETING\.gitignore`
 
 **Interfaces:**
 - Produces: a local ffmpeg path discoverable by the render script.
@@ -34,9 +34,9 @@
 ### Task 2: Manifest and render script
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\shorts-manifest.json`
-- Create: `C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-ShortsFactory.ps1`
-- Create: `C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\README.md`
+- Create: `E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\shorts-manifest.json`
+- Create: `E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-ShortsFactory.ps1`
+- Create: `E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\README.md`
 
 **Interfaces:**
 - Consumes: source videos, music files, watermark overlay.
@@ -50,7 +50,7 @@
 ### Task 3: Render and verify
 
 **Files:**
-- Generated output: `C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\`
+- Generated output: `E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\`
 
 **Interfaces:**
 - Produces: publish-ready local files.

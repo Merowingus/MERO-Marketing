@@ -51,7 +51,7 @@ That made future automation safer. Manual work today becomes connector-compatibl
 - Architecture map: `https://marketing.merowingus.com/architecture`
 - Schema: `docs/schema/snapshot.v1.schema.json`
 - Example snapshot: `docs/schema/examples/divergentum-launch.snapshot.v1.json`
-- Coordination journal: `C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`
+- Coordination journal: `E:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`
 - Current live data source before Phase 2: `command-center/lib/dashboard-data.ts`
 
 ## Facts that are safe to say now

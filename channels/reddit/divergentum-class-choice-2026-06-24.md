@@ -51,11 +51,11 @@ Vote in the comments, but I’m more curious about the reason than the final num
 
 ## Gallery order
 
-1. `C:\CODE\MERO MARKETING\Output\Reddit 2\fighter.jpg`
-2. `C:\CODE\MERO MARKETING\Output\Reddit 2\Rogue.jpg`
-3. `C:\CODE\MERO MARKETING\Output\Reddit 2\wizard.jpg`
-4. `C:\CODE\MERO MARKETING\Output\Reddit 2\druid.jpg`
-5. `C:\CODE\MERO MARKETING\Output\Reddit 2\palladin.jpg`
+1. `E:\CODE\MERO MARKETING\Output\Reddit 2\fighter.jpg`
+2. `E:\CODE\MERO MARKETING\Output\Reddit 2\Rogue.jpg`
+3. `E:\CODE\MERO MARKETING\Output\Reddit 2\wizard.jpg`
+4. `E:\CODE\MERO MARKETING\Output\Reddit 2\druid.jpg`
+5. `E:\CODE\MERO MARKETING\Output\Reddit 2\palladin.jpg`
 
 ## Image captions
 

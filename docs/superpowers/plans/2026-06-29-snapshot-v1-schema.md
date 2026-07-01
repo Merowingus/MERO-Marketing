@@ -23,8 +23,8 @@
 ### Task 1: Create schema files
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\docs\schema\snapshot.v1.schema.json`
-- Create: `C:\CODE\MERO MARKETING\docs\schema\examples\divergentum-launch.snapshot.v1.json`
+- Create: `E:\CODE\MERO MARKETING\docs\schema\snapshot.v1.schema.json`
+- Create: `E:\CODE\MERO MARKETING\docs\schema\examples\divergentum-launch.snapshot.v1.json`
 
 **Interfaces:**
 - Produces: a schema with top-level fields `schemaVersion`, `generatedAt`, `tenantId`, `productId`, `campaignId`, `summary`, `focus`, `kpis`, `channels`, `experiments`, `assets`, `metrics`, `nextActions`.
@@ -38,8 +38,8 @@
 ### Task 2: Document how to use the contract
 
 **Files:**
-- Create: `C:\CODE\MERO MARKETING\docs\schema\README.md`
-- Modify: `C:\CODE\MERO MARKETING\docs\architecture\mero-marketing-command-center-online-architecture.md`
+- Create: `E:\CODE\MERO MARKETING\docs\schema\README.md`
+- Modify: `E:\CODE\MERO MARKETING\docs\architecture\mero-marketing-command-center-online-architecture.md`
 
 **Interfaces:**
 - Produces: a human-readable contract guide for Codex and Claude Code.

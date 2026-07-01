@@ -23,17 +23,17 @@ render candidates, verify files, then decide what to publish.
 
 ## Default paths
 
-- Input videos: `C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut`
-- Final output: `C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts -done`
-- Auto-cut script: `C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1`
-- Scratch output root: `C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\auto-cut`
+- Input videos: `E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut`
+- Final output: `E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts -done`
+- Auto-cut script: `E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1`
+- Scratch output root: `E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\auto-cut`
 - Watermark: `channels/youtube/assets/merowingus-studio-watermark-shorts-1080x1920-20.png`
 
 ## Workflow
 
 1. Read project context first:
-   - `C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`
-   - `C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\README.md`
+   - `E:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`
+   - `E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\README.md`
 2. Confirm git state. If code/scripts/docs will change, work on a feature branch.
 3. Inspect only the source video(s) placed in `Shorts - to cut` with `ffprobe` or `Invoke-AutoCut.ps1 -AnalyzeOnly`.
 4. Generate visual review artifacts:
@@ -63,19 +63,19 @@ render candidates, verify files, then decide what to publish.
 Analyze only:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1" -InputDir "C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut" -SourceVideo "first tiktok.mp4" -AnalyzeOnly -Force
+powershell -NoProfile -ExecutionPolicy Bypass -File "E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1" -InputDir "E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut" -SourceVideo "first tiktok.mp4" -AnalyzeOnly -Force
 ```
 
 Automatic candidates:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1" -InputDir "C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut" -SourceVideo "first tiktok.mp4" -Force
+powershell -NoProfile -ExecutionPolicy Bypass -File "E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1" -InputDir "E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut" -SourceVideo "first tiktok.mp4" -Force
 ```
 
 Curated candidates:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1" -InputDir "C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut" -SourceVideo "first tiktok.mp4" -RunName "first-tiktok-curated" -ManualStartsSec "0,24,108" -CandidateCount 3 -SegmentDurationSec 45 -Force
+powershell -NoProfile -ExecutionPolicy Bypass -File "E:\CODE\MERO MARKETING\channels\youtube\shorts-factory\Invoke-AutoCut.ps1" -InputDir "E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\Shorts - to cut" -SourceVideo "first tiktok.mp4" -RunName "first-tiktok-curated" -ManualStartsSec "0,24,108" -CandidateCount 3 -SegmentDurationSec 45 -Force
 ```
 
 ## Choosing starts

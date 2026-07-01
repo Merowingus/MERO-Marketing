@@ -30,6 +30,6 @@ wow-moment → get ready-to-shoot Reels/Shorts scripts.
 
 ## Related
 
-- **Parent studio:** `C:\CODE\MEROWINGUS Studio` (umbrella, roadmap, flywheel).
+- **Parent studio:** `E:\CODE\MEROWINGUS Studio` (umbrella, roadmap, flywheel).
 - **Engine model:** `…\MEROWINGUS Studio\strategy\agentic-engine.md`.
-- **Siblings:** MERO SEO (`C:\CODE\MERO SEO`), MERO Job Hunt (`C:\CODE\JH`).
+- **Siblings:** MERO SEO (`E:\CODE\MERO SEO`), MERO Job Hunt (`E:\CODE\MERO Job Hunter`).

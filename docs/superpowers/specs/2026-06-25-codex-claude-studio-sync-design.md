@@ -2,8 +2,8 @@
 
 ## Goal
 
-Give Codex in `C:\CODE\MERO MARKETING` and Claude Code in
-`C:\CODE\MEROWINGUS Studio` one durable shared memory for cross-project decisions, plans, handoffs,
+Give Codex in `E:\CODE\MERO MARKETING` and Claude Code in
+`E:\CODE\MEROWINGUS Studio` one durable shared memory for cross-project decisions, plans, handoffs,
 implementation results, and blockers.
 
 The system coordinates agents through files and Git. It does not attempt to connect model sessions
@@ -13,9 +13,9 @@ directly.
 
 - Both Codex and Claude Code may research, brainstorm, and design.
 - Codex owns marketing strategy, campaigns, content, experiments, and metric definitions in
-  `C:\CODE\MERO MARKETING`.
+  `E:\CODE\MERO MARKETING`.
 - Claude Code owns implementation of Studio website UI and backend in
-  `C:\CODE\MEROWINGUS Studio`.
+  `E:\CODE\MEROWINGUS Studio`.
 - Studio implementation tasks use the existing engineering pipeline:
   `_handoff/DEVELOPER_INSTRUCTIONS.md` and `_handoff/TEST_PLAN.md`.
 - Both agents read and update the shared journal around cross-project work.
@@ -24,14 +24,14 @@ directly.
 
 ### Canonical journal
 
-`C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`
+`E:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`
 
 The Studio is the head project and the future host of the MERO Marketing dashboard, so the canonical
 cross-agent state lives there.
 
 ### Marketing pointer
 
-`C:\CODE\MERO MARKETING\coordination\SYNC.md`
+`E:\CODE\MERO MARKETING\coordination\SYNC.md`
 
 This file contains only the canonical path and the operating protocol. It must not duplicate journal
 state.

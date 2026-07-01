@@ -301,7 +301,7 @@ function Write-CandidateReport {
 
 $repoRoot = Get-RepoRoot
 if ([string]::IsNullOrWhiteSpace($InputDir)) {
-  $InputDir = "C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram"
+  $InputDir = "E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram"
 }
 
 if ([string]::IsNullOrWhiteSpace($OutputDir)) {

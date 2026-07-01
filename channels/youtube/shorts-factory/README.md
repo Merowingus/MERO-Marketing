@@ -4,7 +4,7 @@ Local factory for turning existing Divergentum clips into publish-ready Shorts/R
 
 ## Inputs
 
-- Videos: `C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\*.mp4`
+- Videos: `E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\*.mp4`
 - Music: `C:\CODE\Divergentum\public\audio\music\**\*.mp3`
 - Watermark: `channels/youtube/assets/merowingus-studio-watermark-shorts-1080x1920-20.png`
 - Manifest: `channels/youtube/shorts-factory/shorts-manifest.json`
@@ -13,7 +13,7 @@ Local factory for turning existing Divergentum clips into publish-ready Shorts/R
 
 Generated files are written to:
 
-`C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\`
+`E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\`
 
 Folders:
 
@@ -62,7 +62,7 @@ Use manual start times when the contact sheet shows better human cuts than scene
 
 Generated auto-cut artifacts are written to:
 
-`C:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\auto-cut\<video-slug>\`
+`E:\CODE\MERO MARKETING\Output\Tik-tok_youtube_instagram\_shorts_factory\auto-cut\<video-slug>\`
 
 Folders/files:
 

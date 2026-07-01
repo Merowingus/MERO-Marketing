@@ -20,7 +20,7 @@ separate spreadsheet that drifts away from the agents and campaign files.
 
 The Merowingus Studio website already has a `MERO Marketing` card in:
 
-`C:\CODE\MEROWINGUS Studio\website\tools.html`
+`E:\CODE\MEROWINGUS Studio\website\tools.html`
 
 It is currently marked `Soon`. The dashboard can eventually live behind this section while the
 public marketing page remains part of the Studio website.

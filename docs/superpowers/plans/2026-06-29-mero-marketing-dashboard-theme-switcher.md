@@ -12,7 +12,7 @@
 
 - Windows / PowerShell paths.
 - No new dependencies.
-- Reuse Merowingus Studio design tokens and rhythm from `C:\CODE\MEROWINGUS Studio\website`.
+- Reuse Merowingus Studio design tokens and rhythm from `E:\CODE\MEROWINGUS Studio\website`.
 - Light theme is the default.
 - Dark theme remains available.
 - Marketing dashboard data remains in `dashboard/data.js`.
@@ -22,7 +22,7 @@
 ### Task 1: Theme shell and switcher
 
 **Files:**
-- Modify: `C:\CODE\MERO MARKETING\dashboard\index.html`
+- Modify: `E:\CODE\MERO MARKETING\dashboard\index.html`
 
 **Interfaces:**
 - Consumes: `dashboard/assets/logo.png`, `dashboard/assets/logo-dark.png`.
@@ -40,7 +40,7 @@
 ### Task 2: Light-first Studio CSS
 
 **Files:**
-- Modify: `C:\CODE\MERO MARKETING\dashboard\styles.css`
+- Modify: `E:\CODE\MERO MARKETING\dashboard\styles.css`
 
 **Interfaces:**
 - Consumes: the current dashboard class names.
@@ -55,9 +55,9 @@
 ### Task 3: Verification
 
 **Files:**
-- Verify: `C:\CODE\MERO MARKETING\dashboard\data.js`
-- Verify: `C:\CODE\MERO MARKETING\dashboard\server.js`
-- Verify: `C:\CODE\MERO MARKETING\dashboard\index.html`
+- Verify: `E:\CODE\MERO MARKETING\dashboard\data.js`
+- Verify: `E:\CODE\MERO MARKETING\dashboard\server.js`
+- Verify: `E:\CODE\MERO MARKETING\dashboard\index.html`
 
 **Interfaces:**
 - Produces: a static dashboard that renders all dynamic sections in both themes.

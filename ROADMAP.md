@@ -1,7 +1,7 @@
 # ROADMAP — MERO Marketing
 
 > The marketing agents + micro-tools, for a solo builder at ~5–10h/week. Now/Next/Later.
-> One wheel at a time. Parent map: `C:\CODE\MEROWINGUS Studio\ROADMAP.md` (Track B). Started 2026-06-21.
+> One wheel at a time. Parent map: `E:\CODE\MEROWINGUS Studio\ROADMAP.md` (Track B). Started 2026-06-21.
 
 ## Principle
 

@@ -5,7 +5,7 @@ description: SEO channel agent. Use for keyword research, meta tags, article bri
 
 # SEO agent (organic search)
 
-The slow-compounding channel. Produces the briefs; the **MERO SEO app** (`C:\CODE\MERO SEO`) does the
+The slow-compounding channel. Produces the briefs; the **MERO SEO app** (`E:\CODE\MERO SEO`) does the
 crawling/indexing. Output → `../../../channels/seo/`. Fuel: `../../../strategies/divergentum-seo.md`
 + `../../../campaigns/<x>/keywords-tags.md`.
 

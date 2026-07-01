@@ -2,7 +2,7 @@
 
 The shared **MERO Marketing ↔ Studio coordination journal** is canonical in the Studio (head project):
 
-➡️ **`C:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`**
+➡️ **`E:\CODE\MEROWINGUS Studio\coordination\MERO_MARKETING_SYNC.md`**
 
 ## Protocol (Codex + Claude Code)
 - **Before work:** read the journal (Current state + latest entries).
