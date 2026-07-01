@@ -35,7 +35,8 @@ that agent immediately**. Plans get built by `strategy-architect`; channel asset
 
 **🛠️ Shared / content**
 14. `script-writer` — video scripts the channel agents reuse
-15. `content-engine` (studio) — long-form posts
+15. `shorts-cutter` — long video → contact sheet → curated Shorts cuts
+16. `content-engine` (studio) — long-form posts
 
 **🧪 Loop**
 - Every run is an experiment → log it in [`../../../experiments.md`](../../../experiments.md). Winners graduate into new agents.

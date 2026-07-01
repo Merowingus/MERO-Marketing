@@ -14,6 +14,7 @@ Tags/keywords: `../../../campaigns/<x>/keywords-tags.md`.
 
 ## Method
 1. Shorts → call `script-writer`, format vertical <60s.
+   - If the input is a longer source video, call `shorts-cutter` first: contact sheet → curated starts → verified draft cuts.
 2. Demo → outline: hook → the wow loop (action → 5e roll → AI → art) → CTA. Write title (SEO keyword) + description (primary keyword + link with UTM) + chapters.
 3. Thumbnail note: the generated scene + a 3-word overlay.
 

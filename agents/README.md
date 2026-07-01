@@ -35,6 +35,7 @@ channel's norms, and stores output in `../channels/<name>/`. Start at `marketing
 | Agent | Role |
 |---|---|
 | **script-writer** | video scripts the IG/TikTok/YouTube agents reuse | ✅ |
+| **shorts-cutter** | long video → contact sheet → curated Shorts cuts | ✅ |
 | `content-engine` (studio) | long-form post format the blog agent uses | ✅ |
 
 ## Suggested future agents (build when a plan or experiment justifies)
