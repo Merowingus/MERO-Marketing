@@ -8,6 +8,7 @@ output/
 Output/
 **/_shorts_factory/rendered/
 **/_shorts_factory/logs/
+**/_shorts_factory/auto-cut/
 
 # Local portable tools
 .tools/
